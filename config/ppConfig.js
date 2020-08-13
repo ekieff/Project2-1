@@ -41,4 +41,6 @@ passport.use(new localStrategy(
         }
     })
     .catch(callback());
-}))
+}));
+
+module.exports = passport;
