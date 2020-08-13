@@ -4,15 +4,15 @@ const db = require("../models");
 
 //passport serializes youur info make it easier to login
 
-passport.serializeUser((user, callback) =>
+passport.serializeUser((user, cb) =>
 {
-    callback(null, user.id);
+    cb(null, user.id);
 });
 
-passport.deserializeUser((id, callback) =>
+passport.deserializeUser((id, cb) =>
 {
-    callback(null, id)
-    .catch(callback());
+    cb(null, id)
+    .catch(cb());
 });
 
 passport.use(new localStrategy(
@@ -20,7 +20,7 @@ passport.use(new localStrategy(
     usernameField: "email",
     passwordField: "password"
 }, 
-(email, password, callback) =>
+(email, password, cb) =>
 {
     db.user.findOne(
     {
@@ -33,14 +33,14 @@ passport.use(new localStrategy(
     {
         if (!user || !user.validPassword(password))
         {
-            callback(null, false);
+            cb(null, false);
         }
         else
         {
-            callback(null, user);
+            cb(null, user);
         }
     })
-    .catch(callback());
+    .catch(cb());
 }));
 
 module.exports = passport;

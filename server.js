@@ -5,7 +5,7 @@ const app = express();
 const session = require("express-session");
 const passport = require('passport');
 const SECRET_SESSION = process.env.SECRET_SESSION;
-const passport = require("../config/ppConfig");
+//const passport = require("../config/ppConfig");
 
 app.set('view engine', 'ejs');
 
