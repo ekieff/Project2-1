@@ -1,16 +1,22 @@
 {
   "development": {
-    "database": "express_auth_development",
+    "username": "imjchiang",
+    "password": 5375,
+    "database": "authapp",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "database": "express_auth_test",
+    "username": "imjchiang",
+    "password": 5375,
+    "database": "authapp",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "database": "express_auth_production",
+    "username": "imjchiang",
+    "password": 5375,
+    "database": "authapp",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }
