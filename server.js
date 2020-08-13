@@ -5,6 +5,7 @@ const app = express();
 const session = require("express-session");
 const passport = require('passport');
 const SECRET_SESSION = process.env.SECRET_SESSION;
+const flash = require("connect-flash");
 //const passport = require("../config/ppConfig");
 
 app.set('view engine', 'ejs');
@@ -38,6 +39,8 @@ app.get('/profile', (req, res) => {
 
 app.use('/auth', require('./routes/auth'));
 
+//flash for temporary messages to the user
+app.use(flash());
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
