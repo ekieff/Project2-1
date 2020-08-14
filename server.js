@@ -44,7 +44,8 @@ app.use(function(req, res, next)
 });
 
 app.get('/', (req, res) => {
-  res.render('index', { alerts: req.flash() });
+  console.log(res.locals.alerts);
+  res.render('index', { alerts: res.locals.alerts });
 });
 
 app.get('/profile', isLoggedIn, (req, res) => 
@@ -54,7 +55,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
 
 app.use('/auth', require('./routes/auth'));
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${port} 🎧`);
 });
