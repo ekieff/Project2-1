@@ -1,0 +1,16 @@
+<% if (alerts.error)
+{ %>
+    <% alert.error.forEach(msg =>
+    { %>
+        <div class="alert alert-error"><%= msg %></div>
+    <% }); %>
+<% } %>
+
+
+<% if (alerts.success)
+{ %>
+    <% alert.success.forEach(msg =>
+    { %>
+        <div class="alert alert-success"><%= msg %></div>
+    <% }); %>
+<% } %>

@@ -42,6 +42,20 @@ app.use('/auth', require('./routes/auth'));
 //flash for temporary messages to the user
 app.use(flash());
 
+//middleware to have our message accessible for every view
+app.use(function(req, res, next)
+{
+  //before every route we will attache our current user to res.local
+  res.locals.alerts = req.flash();
+  res.locals.currentUser = req.user;
+  next();
+});
+
+// app.get("/", function(req, res)
+// {
+//   res.render("index", req.flash)
+// })
+
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${port} 🎧`);
