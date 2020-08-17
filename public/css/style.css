@@ -1,3 +1,10 @@
+body
+{
+  background-image: url("https://nexus.leagueoflegends.com/wp-content/uploads/2017/11/LOL_CMS_152_Article_01_dsnpbw97lpr2tcdw6cjm.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 nav ul li {
   text-decoration: none;
   display: inline-block;
@@ -6,4 +13,32 @@ nav ul li {
 
 h1 {
   color: chartreuse;
+}
+
+.card
+{
+  max-width: 15vw;
+  margin: 2vw;
+  border: 0;
+}
+
+.champ-icon
+{
+  width: 15vw;
+  height: 15vw;
+  object-fit: cover;
+}
+
+.card:hover
+{
+  outline: 0.5vw solid white;
+  outline-offset: -1vw;
+}
+
+.card-title
+{
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 90%;
 }
