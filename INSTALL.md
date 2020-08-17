@@ -13,9 +13,8 @@
 6. if on WINDOWS or LINUX, change <username> and <password> entries to the username and password of your database
 7. migrate the models to the database
     - sequelize db:migrate
-8. add a .env file with the following fields: 
+8. add a .env file with the following field: 
     - SESSION_SECRET: Can be any random string; usually a hash in production
-    - PORT: Usually 3000 or 8000
 9. run the server!
     - nodemon
     - node server.js
