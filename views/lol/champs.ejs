@@ -4,10 +4,10 @@
 <% allNames.forEach(name =>
 { %>
     <div class="card bg-dark text-white">
-        <a href="/champs/<%= name.toLowerCase() %>">
+        <a href="/champs/<%= name %>">
             <img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= name %>_0.jpg" class="card-img">
             <div class="card-img-overlay">
-                <h5 class="card-title"><%= allChamps[name].id %></h5>
+                <h5 class="card-title"><%= allChamps[name].name %></h5>
             </div>
         </a>
     </div>  
