@@ -17,7 +17,8 @@ router.get("/", function(req, res)
     })
     .then(data =>
     {
-        let allNames = Object.getOwnPropertyNames(data.data);
+        let allChamps = data.data;
+        let allNames = Object.getOwnPropertyNames(allChamps);
         //console.log(allNames);
 
         let allImages = [];
@@ -30,7 +31,7 @@ router.get("/", function(req, res)
                 allImages.push($(element).find("img").attr("src"));
             })
             //console.log(eachImage);
-            res.render("lol/champs", {allNames:allNames, champImages:allImages});
+            res.render("lol/champs", {allNames:allNames, allChamps:allChamps, champImages:allImages});
         });
     })
     .catch(err =>
