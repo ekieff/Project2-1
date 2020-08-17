@@ -3,6 +3,9 @@ const router = express.Router();
 const fetch = require("node-fetch");
 const db = require("../models");
 const passport = require("../config/ppConfig");
+const request = require("request"); //alternative to axios
+const cheerio = require("cheerio"); //import cheerio
+const URL = "https://na.leagueoflegends.com/en-us/champions/";
 
 //get all champs and show them
 router.get("/", function(req, res)
@@ -14,10 +17,21 @@ router.get("/", function(req, res)
     })
     .then(data =>
     {
-        let allChamps = data.data;
-        let allChampNames = Object.getOwnPropertyNames(allChamps);
-        //console.log(allChampNames);
-        res.render("lol/champs", {allChamps:allChamps, allNames:allChampNames});
+        let allNames = Object.getOwnPropertyNames(data.data);
+        //console.log(allNames);
+
+        let allImages = [];
+        request(URL, (error, response, body) =>
+        {
+            let $ = cheerio.load(body);
+            let images = $(".style__ImageContainer-sc-12h96bu-1");
+            images.each((index, element) =>
+            {
+                allImages.push($(element).find("img").attr("src"));
+            })
+            //console.log(eachImage);
+            res.render("lol/champs", {allNames:allNames, champImages:allImages});
+        });
     })
     .catch(err =>
     {
@@ -28,24 +42,22 @@ router.get("/", function(req, res)
 
 router.get("/:name", function(req, res)
 {
-    fetch("http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json")
+    fetch(`http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion/${ req.params.name }.json`)
     .then(response =>
     {
         return response.json();
     })
     .then(data =>
     {
-        let paramName = req.params.name;
-        let champName = paramName.slice(0, 1) + paramName.slice(1, paramName.length);
-        let champ = data.data[champName];
-        //console.log(champ);
-        res.render("lol/oneChamp", {champ});
+        let theChamp = data.data[req.params.name];
+        console.log(theChamp);
+        res.render("lol/oneChamp", {theChamp});
     })
-    .catch(err =>
+    .catch(error =>
     {
-        console.log("ERROR: FETCH CALL FOR ONE CHAMP DISPLAY", err);
+        console.log("ERROR: FETCH CALL FOR ONE CHAMP DISPLAY", error);
         res.send("ERROR: FETCH CALL FOR ONE CHAMP DISPLAY");
-    });
+    })
 });
 
 module.exports = router;

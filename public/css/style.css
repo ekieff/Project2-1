@@ -1,44 +1,73 @@
 body
 {
-  background-image: url("https://nexus.leagueoflegends.com/wp-content/uploads/2017/11/LOL_CMS_152_Article_01_dsnpbw97lpr2tcdw6cjm.jpg");
+  background-image: url("../images/LOL-bg.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
+  color: white;
 }
 
-nav ul li {
+nav ul li 
+{
   text-decoration: none;
   display: inline-block;
   margin-right: .3em;
 }
 
-h1 {
-  color: white;
+.brand-logo
+{
+  max-width: 4vw;
+  max-height: 4vw;
+  object-fit: cover;
+}
+
+/* ALL CHAMPS STYLING */
+.all-champs
+{
+  position: absolute;
+  left: 22.5vw;
+  max-width: 74vw;
 }
 
 .card
 {
-  max-width: 15vw;
-  margin: 2vw;
+  max-width: 12vw;
+  margin: 1.4vw;
   border: 0;
 }
 
 .champ-icon
 {
-  width: 15vw;
-  height: 15vw;
+  width: 12vw;
+  height: 12vw;
   object-fit: cover;
 }
 
 .card:hover
 {
-  outline: 0.5vw solid white;
+  outline: 0.4vw solid white;
   outline-offset: -1vw;
+}
+
+.card-link:hover
+{
+  outline: 0.25vw solid black;
+  outline-offset: 0vw;
 }
 
 .card-title
 {
+  font-size: 1vw;
   color: white;
   display: flex;
   justify-content: center;
-  margin-top: 90%;
+  margin-top: 8vw;
 }
+/* ALL CHAMPS STYLING */
+
+/* ONE CHAMP STYLING */
+.skin-slides
+{
+  max-width: 60vw;
+  margin-left: 20vw;
+}
+/* ONE CHAMP STYLING */

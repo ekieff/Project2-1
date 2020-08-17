@@ -1,13 +1,14 @@
 <h1>League of Legends Champions</h1>
 
-<div class="row row-cols-1 row-cols-md-5">
+<div class="all-champs row row-cols-1 row-cols-md-5">
+
 <% allNames.forEach(name =>
 { %>
     <div class="card bg-dark text-white">
-        <a href="/champs/<%= name %>">
-            <img class="champ-icon" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= name %>_0.jpg" class="card-img">
+        <a class="card-link" href="/champs/<%= name %>">
+            <img class="champ-icon" src="<%= champImages[allNames.indexOf(name)] %>" class="card-img">
             <div class="card-img-overlay">
-                <h5 class="card-title"><%= allChamps[name].name %></h5>
+                <h5 class="card-title"><%= name %></h5>
             </div>
         </a>
     </div>  

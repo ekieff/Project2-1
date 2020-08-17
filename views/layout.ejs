@@ -5,23 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LEAGUE OF L's</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
     <header>
       <nav>
-        <ul>
-          <% if (!currentUser)
-          { %>
-            <li><a href="/auth/signup">Signup</a></li>
-            <li><a href="/auth/login">Login</a></li>
-          <% }
-          else
-          { %>
-            <li><a href="/auth/logout">Logout</a></li>
-            <li><a href="/profile">Profile</a></li>
-          <% } %>
-        </ul>
+        <div class="nav-wrapper">
+          <img class="brand-logo" src="https://www.netclipart.com/pp/m/129-1299793_league-of-legends-computer-icons-riven-riot-games.png">
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <% if (!currentUser)
+            { %>
+              <li><a href="/auth/signup">Signup</a></li>
+              <li><a href="/auth/login">Login</a></li>
+            <% }
+            else
+            { %>
+              <li><a href="/auth/logout">Logout</a></li>
+              <li><a href="/profile">Profile</a></li>
+            <% } %>
+          </ul>
       </nav>
     </header>
     <%- body %>
