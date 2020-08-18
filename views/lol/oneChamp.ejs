@@ -22,6 +22,13 @@
     </p>
 </div>
 
+<%
+let champNum = theChamp.key.toString();
+while (champNum.length != 4)
+{
+    champNum = "0" + champNum;
+}
+%>
 
 <hr class="in-page">
 
@@ -29,29 +36,49 @@
     <h2>Abilities</h2>
     <div class="all-abilities">
         <div>
-            <img class="ability" src="https://placekitten.com/500/500" alt="">
+            <video class="ability" autoplay muted loop>
+                <source src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/<%= champNum %>/ability_<%= champNum %>_P1.mp4" type="video/mp4">
+                <source src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/<%= champNum %>/ability_<%= champNum %>_P1.webm" type="video/webm">
+            YOUR BROWSER DOES NOT SUPPORT THIS VIDEO TYPE
+            </video>
             <h4>Passive: <%= theChamp.passive.name %></h4>
-            <p><%= theChamp.passive.description %></p>
+            <p><%= theChamp.passive.description.replace(/(<([^>]+)>)/ig, ' '); %></p>
         </div>
         <div>
-            <img class="ability" src="https://placekitten.com/500/500" alt="">
+            <video class="ability" autoplay muted loop>
+                <source src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/<%= champNum %>/ability_<%= champNum %>_Q1.mp4" type="video/mp4">
+                <source src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/<%= champNum %>/ability_<%= champNum %>_Q1.webm" type="video/webm">
+            YOUR BROWSER DOES NOT SUPPORT THIS VIDEO TYPE
+            </video>
             <h4>Q: <%= theChamp.spells[0].name %></h4>
-            <p><%= theChamp.spells[0].description %></p>
+            <p><%= theChamp.spells[0].description.replace(/(<([^>]+)>)/ig, ' '); %></p>
         </div>
         <div>
-            <img class="ability" src="https://placekitten.com/500/500" alt="">
+            <video class="ability" autoplay muted loop>
+                <source src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/<%= champNum %>/ability_<%= champNum %>_W1.mp4" type="video/mp4">
+                <source src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/<%= champNum %>/ability_<%= champNum %>_W1.webm" type="video/webm">
+            YOUR BROWSER DOES NOT SUPPORT THIS VIDEO TYPE
+            </video>
             <h4>W: <%= theChamp.spells[1].name %></h4>
-            <p><%= theChamp.spells[1].description %></p>
+            <p><%= theChamp.spells[1].description.replace(/(<([^>]+)>)/ig, ' '); %></p>
         </div>
         <div>
-            <img class="ability" src="https://placekitten.com/500/500" alt="">
+            <video class="ability" autoplay muted loop>
+                <source src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/<%= champNum %>/ability_<%= champNum %>_E1.mp4" type="video/mp4">
+                <source src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/<%= champNum %>/ability_<%= champNum %>_E1.webm" type="video/webm">
+            YOUR BROWSER DOES NOT SUPPORT THIS VIDEO TYPE
+            </video>
             <h4>E: <%= theChamp.spells[2].name %></h4>
-            <p><%= theChamp.spells[2].description %></p>
+            <p><%= theChamp.spells[2].description.replace(/(<([^>]+)>)/ig, ' '); %></p>
         </div>
         <div>
-            <img class="ability" src="https://placekitten.com/500/500" alt="">
+            <video class="ability" autoplay muted loop>
+                <source src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/<%= champNum %>/ability_<%= champNum %>_R1.mp4" type="video/mp4">
+                <source src="https://d28xe8vt774jo5.cloudfront.net/champion-abilities/<%= champNum %>/ability_<%= champNum %>_R1.webm" type="video/webm">
+            YOUR BROWSER DOES NOT SUPPORT THIS VIDEO TYPE
+            </video>
             <h4>R: <%= theChamp.spells[3].name %></h4>
-            <p><%= theChamp.spells[3].description %></p>
+            <p><%= theChamp.spells[3].description.replace(/(<([^>]+)>)/ig, ' '); %></p>
         </div>
     </div>
 </div>

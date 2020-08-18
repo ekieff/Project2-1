@@ -100,6 +100,12 @@ div.champ-lore-image
   font-size: 1.25vw;
 }
 
+.ability
+{
+  object-fit: cover;
+  height: 10vw;
+}
+
 .skin-slides
 {
   width: 70vw;
