@@ -43,3 +43,22 @@ hr.in-page
   margin-bottom: 2vw;
   border: 1px solid rgb(150, 150, 150);
 }
+
+.home-title
+{
+  font-size: 3vw;
+  margin-left: 5vw;
+}
+
+.home-subtitle
+{
+  margin-left: 5vw;
+
+}
+
+.highlights
+{
+  width: 40vw;
+  height: 23vw;
+  margin-left: 5vw;
+}

@@ -4,11 +4,14 @@ const db = require("../models");
 const passport = require("../config/ppConfig");
 
 router.get('/signup', (req, res) => {
-  res.render('auth/signup');
+  let bodyClass = "ALL-CHAMPIONS";
+  res.render('auth/signup', { bodyClass });
 });
 
-router.get('/login', (req, res) => {
-  res.render('auth/login');
+router.get('/login', (req, res) => 
+{
+  let bodyClass = "ALL-CHAMPIONS";
+  res.render('auth/login', { bodyClass });
 });
 
 router.post("/signup", function(req, res)

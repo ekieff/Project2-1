@@ -45,12 +45,14 @@ app.use(function(req, res, next)
 
 app.get('/', (req, res) => {
   console.log(res.locals.alerts);
-  res.render('index', { alerts: res.locals.alerts });
+  let bodyClass = "ALL-CHAMPIONS";
+  res.render('index', { alerts: res.locals.alerts, bodyClass });
 });
 
 app.get('/profile', isLoggedIn, (req, res) => 
 {
-    res.render('profile');
+  let bodyClass = "ALL-CHAMPIONS";
+  res.render('profile', { bodyClass });
 });
 
 app.use('/auth', require('./routes/auth'));
