@@ -1,0 +1,48 @@
+/* ALL CHAMPS STYLING */
+.champ-home-title
+{
+  margin-left: 5vw;
+}
+
+.all-champs
+{
+  position: absolute;
+  left: 14vw;
+  max-width: 74vw;
+}
+
+.card
+{
+  max-width: 12vw;
+  margin: 1.4vw;
+  border: 0;
+}
+
+.champ-icon
+{
+  width: 12vw;
+  height: 12vw;
+  object-fit: cover;
+}
+
+.card:hover
+{
+  outline: 0.4vw solid white;
+  outline-offset: -1vw;
+}
+
+.card-link:hover
+{
+  outline: 0.25vw solid black;
+  outline-offset: 0vw;
+}
+
+.card-title
+{
+  font-size: 1vw;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 8vw;
+}
+/* ALL CHAMPS STYLING */
