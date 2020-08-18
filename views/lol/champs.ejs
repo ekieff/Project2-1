@@ -5,7 +5,7 @@
 <% allNames.forEach(name =>
 { %>
     <div class="card bg-dark text-white">
-        <a class="card-link" href="/champs/<%= name %>">
+        <a class="card-link" href="/champs/<%= allChamps[name].id %>">
             <img class="champ-icon" src="<%= champImages[allNames.indexOf(name)] %>" class="card-img">
             <div class="card-img-overlay">
                 <h5 class="card-title"><%= allChamps[name].name %></h5>

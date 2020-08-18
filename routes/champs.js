@@ -10,6 +10,7 @@ const URL = "https://na.leagueoflegends.com/en-us/champions/";
 //get all champs and show them
 router.get("/", function(req, res)
 {
+    let bodyClass = "ALL-CHAMPIONS";
     fetch("http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json")
     .then(response =>
     {
@@ -31,7 +32,7 @@ router.get("/", function(req, res)
                 allImages.push($(element).find("img").attr("src"));
             })
             //console.log(eachImage);
-            res.render("lol/champs", {allNames:allNames, allChamps:allChamps, champImages:allImages});
+            res.render("lol/champs", {allNames, allChamps, champImages:allImages, bodyClass});
         });
     })
     .catch(err =>
@@ -43,6 +44,7 @@ router.get("/", function(req, res)
 
 router.get("/:name", function(req, res)
 {
+    let bodyClass = "ONE-CHAMPION";
     fetch(`http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion/${ req.params.name }.json`)
     .then(response =>
     {
@@ -52,7 +54,7 @@ router.get("/:name", function(req, res)
     {
         let theChamp = data.data[req.params.name];
         console.log(theChamp);
-        res.render("lol/oneChamp", {theChamp});
+        res.render("lol/oneChamp", {theChamp, bodyClass});
     })
     .catch(error =>
     {

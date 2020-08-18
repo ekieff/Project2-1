@@ -1,6 +1,14 @@
-body
+.ALL-CHAMPIONS
 {
   background-image: url("../images/LOL-bg.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: white;
+}
+
+.ONE-CHAMPION
+{
+  background-image: url("../images/LOL-bg-dark.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   color: white;
@@ -19,6 +27,23 @@ nav ul li
   max-height: 4vw;
   object-fit: cover;
 }
+
+hr.in-title
+{
+  margin-left: 4vw;
+  margin-right: 3vw;
+  margin-bottom: 2vw;
+  border: 1px solid white;
+}
+
+hr.in-page
+{
+  margin-left: 4vw;
+  margin-right: 3vw;
+  margin-bottom: 2vw;
+  border: 1px solid rgb(150, 150, 150);
+}
+
 
 /* ALL CHAMPS STYLING */
 .all-champs
@@ -64,19 +89,47 @@ nav ul li
 }
 /* ALL CHAMPS STYLING */
 
+
+
 /* ONE CHAMP STYLING */
+.champ-head
+{
+  margin-left: 5vw;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.champ-head>h1
+{
+  font-size: 3vw;
+}
+
+.faves
+{
+  margin-left: 1vw ;
+}
+
 div.champ-lore-image
 {
   height: 40vw;
 }
 
+.lore-title
+{
+  position: absolute;
+  margin-left: 5vw;
+  max-width: 25vw;
+  font-size: 1.7vw;
+}
+
 .lore
 {
   position: absolute;
-  margin-top: 4vw;
+  margin-top: 3vw;
   margin-left: 5vw;
   max-width: 25vw;
-  font-size: 1.3vw;
+  font-size: 1.2vw;
 }
 
 .oneChamp-image
@@ -86,14 +139,75 @@ div.champ-lore-image
   margin-left: 35vw;
 }
 
+.basic-stats
+{
+  position: absolute;
+  margin-top: 29.25vw;
+  margin-left: 5vw;
+  font-size: 1.7vw;
+}
+
 .champ-base
 {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  margin-top: 32vw;
+  margin-left: 5vw;
+  font-size: 1vw;
+}
+
+.abilities
+{
+  margin-top: 4vw;
+  margin-left: 5vw;
+}
+
+.all-abilities
+{
+  display: flex;
+  justify-content: center;
+}
+
+.all-abilities>div
+{
+  display: flex;
+  flex-direction: column;
+  margin-top: 1vw;
+  margin-bottom: 3vw;
+  margin-right: 4vw;
+  width: 15vw;
+}
+
+.all-abilities>div>img
+{
+  width: 15vw;
+  object-fit: cover;
+}
+
+.all-abilities>div>h4
+{
+  display: flex;
+  justify-content: center;
+  width: 15vw;
+  font-size: 1.25vw;
 }
 
 .skin-slides
 {
-  max-width: 40vw;
+  width: 70vw;
+  margin-top: 3vw;
+  margin-left: 14vw;
+  margin-bottom: 4vw;
+}
+
+.skins
+{
+  display: flex;
+  justify-content: center;
+  font-size: 2.25vw;
+  margin-top: 1vw;
   margin-left: 30vw;
+  margin-right: 30vw;
 }
 /* ONE CHAMP STYLING */

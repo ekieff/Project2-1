@@ -1,39 +1,64 @@
-<h1><%= theChamp.name %></h1>
+<div class="champ-head">
+    <h1><%= theChamp.name %></h1>
 
-<form method="POST" action="/faves/new">
-    <input type="button" value="Add to Faves">
-</form>
-<div class="champ-lore-image">
-    <p class="lore" ><%= theChamp.lore %></p>
-    <img class="oneChamp-image" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= theChamp.id %>_0.jpg">
+    <form class="faves" method="POST" action="/faves/new">
+        <input type="button" value="Add to Faves">
+    </form>
 </div>
 
-<ul class="champ-base">
-    <li>Attack 
-    <% for (let i = 0; i < theChamp.info.attack; i++)
-    { %>
-        *
-    <% } %>
-    </li>
-    <li>Defense 
-    <% for (let i = 0; i < theChamp.info.defense; i++)
-    { %>
-        *
-    <% } %>
-    </li>
-    <li>Magic 
-    <% for (let i = 0; i < theChamp.info.magic; i++)
-    { %>
-        *
-    <% } %>
-    </li>
-    <li>Difficulty
-    <% for (let i = 0; i < theChamp.info.difficulty; i++)
-    { %>
-        *
-    <% } %>
-    </li>
-</ul>
+<hr class="in-title">
+
+<div class="champ-lore-image">
+    <h2 class="lore-title">Lore</h2>
+    <p class="lore" ><%= theChamp.lore %></p>
+    <img class="oneChamp-image" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= theChamp.id %>_0.jpg">
+    <h2 class="basic-stats">Basic Stats</h2>
+    <p class="champ-base">
+        Attack: &nbsp; <%= theChamp.info.attack %>/10 &emsp; &emsp; &emsp; &emsp; &emsp;
+        Defense: &nbsp; <%= theChamp.info.defense %>/10
+    </br> 
+        Magic: &nbsp; <%= theChamp.info.magic %>/10 &emsp; &emsp; &emsp; &emsp; &emsp;
+        Difficulty: &nbsp; <%= theChamp.info.difficulty %>/10
+    </p>
+</div>
+
+
+<hr class="in-page">
+
+<div class="abilities">
+    <h2>Abilities</h2>
+    <div class="all-abilities">
+        <div>
+            <img class="ability" src="https://placekitten.com/500/500" alt="">
+            <h4>Passive: <%= theChamp.passive.name %></h4>
+            <p><%= theChamp.passive.description %></p>
+        </div>
+        <div>
+            <img class="ability" src="https://placekitten.com/500/500" alt="">
+            <h4>Q: <%= theChamp.spells[0].name %></h4>
+            <p><%= theChamp.spells[0].description %></p>
+        </div>
+        <div>
+            <img class="ability" src="https://placekitten.com/500/500" alt="">
+            <h4>W: <%= theChamp.spells[1].name %></h4>
+            <p><%= theChamp.spells[1].description %></p>
+        </div>
+        <div>
+            <img class="ability" src="https://placekitten.com/500/500" alt="">
+            <h4>E: <%= theChamp.spells[2].name %></h4>
+            <p><%= theChamp.spells[2].description %></p>
+        </div>
+        <div>
+            <img class="ability" src="https://placekitten.com/500/500" alt="">
+            <h4>R: <%= theChamp.spells[3].name %></h4>
+            <p><%= theChamp.spells[3].description %></p>
+        </div>
+    </div>
+</div>
+
+<hr class="in-page">
+
+<h2 class="skins"><%= theChamp.name %> Skins</h2>
 
 <div id="carouselExampleIndicators" class="carousel slide skin-slides" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -46,11 +71,17 @@
     <div class="carousel-inner">
         <div class="carousel-item active">
             <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= theChamp.id %>_1.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5><%= theChamp.skins[1].name %></h5>
+            </div>
         </div>
         <% for (let i = 2; i < theChamp.skins.length; i++)
         { %>
             <div class="carousel-item">
                 <img src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= theChamp.id %>_<%= theChamp.skins[i].num %>.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5><%= theChamp.skins[i].name %></h5>
+                </div>
             </div>
         <% } %>
     </div>
