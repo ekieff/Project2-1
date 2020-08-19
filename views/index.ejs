@@ -30,16 +30,16 @@
     { %>
         <div id="carouselExampleFade" class="carousel slide carousel-fade splash-art-<%= j %>" data-pause="false" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="<%= goodImageData[(Math.floor(goodImageData.length / 8) * (j - 1))].url %>" class="d-block w-100" alt="...">
+                <div class="carousel-item active" data-interval="<%= Math.random()*5000 + 4000 %>">
+                    <img src="<%= goodImageData[(Math.floor(goodImageData.length / 8) * (j - 1))].url %>" class="d-block w-100 splash-img" alt="...">
                     <div class="carousel-caption d-none d-md-block">
                         <p><%= goodImageData[(Math.floor(goodImageData.length / 8) * j - 1)].author %></p>
                     </div>
                 </div>
                 <% for (let i = (Math.floor(goodImageData.length / 8)) * (j - 1) + 1; i < (Math.floor(goodImageData.length / 8)) * j; i++)
                 { %>
-                    <div class="carousel-item">
-                        <img src="<%= goodImageData[i].url %>" class="d-block w-100" alt="...">
+                    <div class="carousel-item" data-interval="<%= Math.random()*5000 + 4000 %>">
+                        <img src="<%= goodImageData[i].url %>" class="d-block w-100 splash-img" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <p><%= goodImageData[i].author %></p>
                         </div>
