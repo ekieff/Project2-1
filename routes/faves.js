@@ -19,7 +19,7 @@ router.get("/:id/champs", function(req, res)
     })
     .then(user =>
     {
-        console.log(user);
+        //console.log(user);
         res.render("faves/champs", { bodyClass });
     })
     .catch(err =>
@@ -41,7 +41,57 @@ router.post("/champs/:email/:champKey", function(req, res)
     .then(user => 
     {
         //console.log(user.id);
-        res.redirect(`/faves/${user.id}/champs`);
+
+        fetch("http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json")
+        .then(response =>
+        {
+            return response.json();
+        })
+        .then(data =>
+        {
+            let theChamp;
+            let allChamps = data.data;
+            let allNames = Object.getOwnPropertyNames(allChamps);
+
+            allNames.forEach(name =>
+            {
+                if (allChamps[name].key == req.params.champKey)
+                {
+                    theChamp = allChamps[name];
+                }
+            });
+
+            db.fave_champion.findOrCreate(
+            {
+                where:
+                {
+                    name: theChamp.name
+                }
+            })
+            .then(([faveChamp, created]) =>
+            {
+                console.log(created);
+                user.addFave_champion(faveChamp)
+                .then(relationship =>
+                {
+                    console.log("The relationship is: ", relationship);
+                    res.redirect(`/faves/${user.id}/champs`);
+                })
+                .catch(err =>
+                {
+                    console.log("ERROR: CHAMP TO USER RELATIONSHIP FAILED", err);
+                });
+            })
+            .catch(err =>
+            {
+                console.log("ERROR: CHAMP NOT CREATED OR FOUND IN DATABASE", err);
+            });
+        })
+        .then(err =>
+        {
+            console.log("ERROR: CHAMPION FOR FAVES NOT FETCHED PROPERLY", err);
+        });
+
     })
     .catch(err =>
     {
