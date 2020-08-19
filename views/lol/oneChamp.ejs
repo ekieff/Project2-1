@@ -1,9 +1,18 @@
 <div class="champ-head">
     <h1><%= theChamp.name %></h1>
 
-    <form class="faves" method="POST" action="/faves/new">
-        <input type="button" value="Add to Faves">
-    </form>
+    <% if (!currentUser)
+    { %>
+        <form class="faves" method="GET" action="auth/login">
+            <input type="button" value="Login to add to Faves">
+        </form>
+    <% }
+    else
+    { %>
+        <form class="faves" method="POST" action="/faves/new">
+            <input type="button" value="Add to Faves">
+        </form>
+    <% } %>
 </div>
 
 <hr class="in-title">
