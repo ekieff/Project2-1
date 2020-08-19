@@ -44,21 +44,67 @@ hr.in-page
   border: 1px solid rgb(150, 150, 150);
 }
 
+/* HOME PAGE STYLING */
 .home-title
 {
   font-size: 3vw;
   margin-left: 5vw;
+  margin-right: 7vw;
+  display: flex;
+  justify-content: center;
 }
 
-.home-subtitle
+.home-highlights
 {
   margin-left: 5vw;
+  margin-right: 7vw;
+  margin-bottom: 1vw;
+  display: flex;
+  justify-content: center;
+}
 
+.home-splashes
+{
+  margin-left: 5vw;
+  margin-right: 7vw;
+  display: flex;
+  justify-content: center;
 }
 
 .highlights
 {
-  width: 40vw;
-  height: 23vw;
-  margin-left: 5vw;
+  width: 60vw;
+  height: 34.5vw;
+  margin-left: 18.4vw;
 }
+
+.splashes
+{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.splash-art-1,.splash-art-2,.splash-art-3
+{
+  /* position: absolute;
+  margin-left: 50vw;
+  width: 10vw;
+  height: 10vw; */
+  flex: 33%;
+  padding: 0 4px;
+}
+
+.splash-art-4,.splash-art-5
+{
+  flex: 33%;
+  padding: 0 4px;
+}
+
+.splash-art-6,.splash-art-7,.splash-art-8
+{
+  flex: 33%;
+  padding: 0 4px;
+}
+
+/* HOME PAGE STYLING */

@@ -2,6 +2,51 @@
 
 <hr class="in-title">
 
-<h2 class="home-subtitle">Gameplay Highlights</h2>
-<iframe class="highlights" src="https://www.youtube.com/embed/AIZ1X-m6uV8?playlist=AIZ1X-m6uV8&autoplay=1&loop=1&mute=1&controls=0" frameborder="0" allow="accelerometer; loop; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<iframe class="highlights" src="https://www.youtube.com/embed/TcY5agi49Jg?playlist=TcY5agi49Jg&loop=1&autoplay=1&mute" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<div class="cool-content">
+    <!-- <h2 class="home-highlights">Gameplay Highlights</h2> -->
+
+    <div id="carouselExampleInterval" class="carousel slide highlights" data-ride="carousel" data-pause="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-interval="3000">
+                <img src="https://i.ytimg.com/vi/QhOtNuRngqw/maxresdefault.jpg" class="d-block w-100">
+            </div>
+            <% for (let i = 0; i < gameplayVideos.length; i++)
+            { %>
+                <div class="carousel-item" data-interval="<%= gameplayVideos[i].duration * 1000%>">
+                    <video class="d-block w-100" autoplay muted loop>
+                        <source src="<%= gameplayVideos[i].fallback_url %> " type="video/mp4">
+                    YOUR BROWSER DOES NOT SUPPORT THIS VIDEO TYPE
+                    </video>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <h2 class="home-splashes">Splash Art</h2>
+
+    <div class="splashes">
+    <% for (let j = 1; j <= 8; j++)
+    { %>
+        <div id="carouselExampleFade" class="carousel slide carousel-fade splash-art-<%= j %>" data-pause="false" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="<%= goodImageData[(Math.floor(goodImageData.length / 8) * (j - 1))].url %>" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <p><%= goodImageData[(Math.floor(goodImageData.length / 8) * j - 1)].author %></p>
+                    </div>
+                </div>
+                <% for (let i = (Math.floor(goodImageData.length / 8)) * (j - 1) + 1; i < (Math.floor(goodImageData.length / 8)) * j; i++)
+                { %>
+                    <div class="carousel-item">
+                        <img src="<%= goodImageData[i].url %>" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-none d-md-block">
+                            <p><%= goodImageData[i].author %></p>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    <% } %>
+    </div>
+</div>

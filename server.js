@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const layouts = require('express-ejs-layouts');
 const app = express();
+const fetch = require("node-fetch");
 const session = require("express-session");
 const SECRET_SESSION = process.env.SECRET_SESSION;
 const passport = require('./config/ppConfig');
@@ -46,7 +47,60 @@ app.use(function(req, res, next)
 app.get('/', (req, res) => {
   console.log(res.locals.alerts);
   let bodyClass = "ALL-CHAMPIONS";
-  res.render('index', { alerts: res.locals.alerts, bodyClass });
+
+  fetch("https://www.reddit.com/r/leagueoflegends.json?limit=70")
+  .then(response =>
+  {
+    //return data as json data
+    return response.json();
+  })
+  .then(gameplayData =>
+  {
+    //console.log(gameplayData);
+    let gameplay = gameplayData.data.children;
+    let gameplayVideos = [];
+    let gameplayPost = [];
+
+    gameplay.forEach(arrayElement =>
+    {
+      if (arrayElement.data.is_video && !arrayElement.data.over_18 && arrayElement.data.media.reddit_video.duration < 45)
+      {
+        gameplayVideos.push(arrayElement.data.media.reddit_video);
+        gameplayPost.push(arrayElement.data);
+      }
+    })
+
+    //console.log(gameplayVideos);
+
+    let goodImageData = [];
+    fetch("https://www.reddit.com/r/LoLFanArt.json?limit=100")
+    .then(response =>
+    {
+      return response.json();
+    })
+    .then(imageData =>
+    {
+      let images = imageData.data.children;
+      images.forEach(image =>
+      {
+        if (image.data.url.substr(image.data.url.length - 3, image.data.url.length) === "png" || image.data.url.substr(image.data.url.length - 3, image.data.url.length) === "jpg")
+        {
+          goodImageData.push(image.data);
+        }
+      });
+      //console.log(goodImageData.length);
+      res.render('index', { alerts: res.locals.alerts, bodyClass, gameplayVideos, gameplayPost, goodImageData });
+    })
+    .catch(err =>
+    {
+      console.log("ERROR: FETCH CALL FOR SPLASH ART FAILED", err);
+    });
+
+  })
+  .catch(err =>
+  {
+    console.log("ERROR: REDDIT API ERROR", err);
+  });
 });
 
 app.get('/profile', isLoggedIn, (req, res) => 
