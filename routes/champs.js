@@ -53,7 +53,7 @@ router.get("/:name", function(req, res)
     .then(data =>
     {
         let theChamp = data.data[req.params.name];
-        console.log(theChamp);
+        //console.log(theChamp);
         res.render("lol/oneChamp", {theChamp, bodyClass});
     })
     .catch(error =>
