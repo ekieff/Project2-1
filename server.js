@@ -7,6 +7,7 @@ const session = require("express-session");
 const SECRET_SESSION = process.env.SECRET_SESSION;
 const passport = require('./config/ppConfig');
 const flash = require("connect-flash");
+//const db = require('./models')
 
 //require the authorization middleware at the top of the page
 const isLoggedIn = require("./middleware/isLoggedIn");
@@ -41,6 +42,7 @@ app.use(function(req, res, next)
   //before every route we will attach our current user to res.local
   res.locals.alerts = req.flash();
   res.locals.currentUser = req.user;
+  //console.log(res.locals.currentUser);
   next();
 });
 
