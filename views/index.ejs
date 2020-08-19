@@ -2,51 +2,58 @@
 
 <hr class="in-title">
 
+<!-- <h2 class="home-highlights">Gameplay Highlights</h2> -->
 
-<div class="cool-content">
-    <!-- <h2 class="home-highlights">Gameplay Highlights</h2> -->
-
-    <div id="carouselExampleInterval" class="carousel slide highlights" data-ride="carousel" data-pause="false">
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-interval="3000">
-                <img src="https://i.ytimg.com/vi/QhOtNuRngqw/maxresdefault.jpg" class="d-block w-100">
+<div id="carouselExampleInterval" class="carousel slide highlights" data-ride="carousel" data-pause="false">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-interval="3000">
+            <img src="https://i.ytimg.com/vi/QhOtNuRngqw/maxresdefault.jpg" class="d-block w-100">
+        </div>
+        <% for (let i = 0; i < gameplayVideos.length; i++)
+        { %>
+            <div class="carousel-item" data-interval="<%= gameplayVideos[i].duration * 1000 + 300 %>">
+                <video class="d-block w-100" autoplay muted loop>
+                    <source src="<%= gameplayVideos[i].fallback_url %> " type="video/mp4">
+                YOUR BROWSER DOES NOT SUPPORT THIS VIDEO TYPE
+                </video>
             </div>
-            <% for (let i = 0; i < gameplayVideos.length; i++)
+        <% } %>
+    </div>
+</div>
+
+<hr class="in-title">
+
+<h2 class="home-champions">Champions</h2>
+
+<hr class="in-title">
+
+<h2 class="home-modes">Game Modes</h2>
+
+<hr class="in-title">
+
+<h2 class="home-splashes">Splash Art</h2>
+
+<div class="splashes">
+<% for (let j = 1; j <= 8; j++)
+{ %>
+    <div id="carouselExampleFade" class="carousel slide carousel-fade splash-art-<%= j %>" data-pause="false" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-interval="<%= Math.random()*5000 + 4000 %>">
+                <img src="<%= goodImageData[(Math.floor(goodImageData.length / 8) * (j - 1))].url %>" class="d-block w-100 splash-img" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <p><%= goodImageData[(Math.floor(goodImageData.length / 8) * j - 1)].author %></p>
+                </div>
+            </div>
+            <% for (let i = (Math.floor(goodImageData.length / 8)) * (j - 1) + 1; i < (Math.floor(goodImageData.length / 8)) * j; i++)
             { %>
-                <div class="carousel-item" data-interval="<%= gameplayVideos[i].duration * 1000%>">
-                    <video class="d-block w-100" autoplay muted loop>
-                        <source src="<%= gameplayVideos[i].fallback_url %> " type="video/mp4">
-                    YOUR BROWSER DOES NOT SUPPORT THIS VIDEO TYPE
-                    </video>
+                <div class="carousel-item" data-interval="<%= Math.random()*5000 + 4000 %>">
+                    <img src="<%= goodImageData[i].url %>" class="d-block w-100 splash-img" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                        <p><%= goodImageData[i].author %></p>
+                    </div>
                 </div>
             <% } %>
         </div>
     </div>
-
-    <h2 class="home-splashes">Splash Art</h2>
-
-    <div class="splashes">
-    <% for (let j = 1; j <= 8; j++)
-    { %>
-        <div id="carouselExampleFade" class="carousel slide carousel-fade splash-art-<%= j %>" data-pause="false" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-interval="<%= Math.random()*5000 + 4000 %>">
-                    <img src="<%= goodImageData[(Math.floor(goodImageData.length / 8) * (j - 1))].url %>" class="d-block w-100 splash-img" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <p><%= goodImageData[(Math.floor(goodImageData.length / 8) * j - 1)].author %></p>
-                    </div>
-                </div>
-                <% for (let i = (Math.floor(goodImageData.length / 8)) * (j - 1) + 1; i < (Math.floor(goodImageData.length / 8)) * j; i++)
-                { %>
-                    <div class="carousel-item" data-interval="<%= Math.random()*5000 + 4000 %>">
-                        <img src="<%= goodImageData[i].url %>" class="d-block w-100 splash-img" alt="...">
-                        <div class="carousel-caption d-none d-md-block">
-                            <p><%= goodImageData[i].author %></p>
-                        </div>
-                    </div>
-                <% } %>
-            </div>
-        </div>
-    <% } %>
-    </div>
+<% } %>
 </div>

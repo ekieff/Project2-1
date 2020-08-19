@@ -1,0 +1,101 @@
+/* HOME PAGE STYLING */
+.home-title
+{
+  margin-top: 4vw;
+  font-size: 4vw;
+  margin-left: 5vw;
+  margin-right: 7vw;
+  display: flex;
+  justify-content: center;
+}
+
+.home-highlights
+{
+  margin-left: 5vw;
+  margin-right: 7vw;
+  margin-bottom: 1vw;
+  display: flex;
+  justify-content: center;
+}
+
+.highlights
+{
+  width: 60vw;
+  height: 34.5vw;
+  margin: 3vw;
+  margin-left: 18.4vw;
+}
+
+.home-champions
+{
+  margin: 4vw;
+  margin-right: 7vw;
+  margin-bottom: 2vw;
+  font-size: 2.5vw;
+  display: flex;
+  justify-content: center;
+}
+
+.home-modes
+{
+  margin: 4vw;
+  margin-right: 7vw;
+  margin-bottom: 2vw;
+  font-size: 2.5vw;
+  display: flex;
+  justify-content: center;
+}
+
+.home-splashes
+{
+  margin: 4vw;
+  margin-right: 7vw;
+  margin-bottom: 2vw;
+  font-size: 2.5vw;
+  display: flex;
+  justify-content: center;
+}
+
+.splashes
+{
+  margin-left: 5vw;
+  margin-right: 4vw;
+  margin-bottom: 4vw;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.splash-img
+{
+  height: 25vw;
+  object-fit: cover;
+}
+
+.splash-art-1,.splash-art-2
+{
+  /* position: absolute;
+  margin-left: 50vw; */
+  flex: 25%;
+  padding: 0.5vw;
+}
+
+.splash-art-3,.splash-art-4
+{
+  flex: 25%;
+  padding: 0.5vw;
+}
+
+.splash-art-5,.splash-art-6
+{
+  flex: 25%;
+  padding: 0.5vw;
+}
+
+.splash-art-7,.splash-art-8
+{
+  flex: 25%;
+  padding: 0.5vw;
+}
+
+/* HOME PAGE STYLING */

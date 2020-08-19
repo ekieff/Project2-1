@@ -1,6 +1,7 @@
 /* ONE CHAMP STYLING */
 .champ-head
 {
+  margin-top: 4vw;
   margin-left: 5vw;
   display: flex;
   justify-content: left;
