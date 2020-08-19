@@ -7,7 +7,7 @@ const session = require("express-session");
 const SECRET_SESSION = process.env.SECRET_SESSION;
 const passport = require('./config/ppConfig');
 const flash = require("connect-flash");
-//const db = require('./models')
+const db = require('./models')
 
 //require the authorization middleware at the top of the page
 const isLoggedIn = require("./middleware/isLoggedIn");
@@ -108,7 +108,7 @@ app.get('/', (req, res) => {
 app.get('/profile', isLoggedIn, (req, res) => 
 {
   let bodyClass = "ALL-CHAMPIONS";
-  res.render('profile', { bodyClass });
+  res.render('lol/profile', { bodyClass });
 });
 
 app.use('/auth', require('./routes/auth'));

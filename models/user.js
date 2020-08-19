@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.user.hasOne(models.player);
+      models.user.belongsToMany(models.fave_player, {through: "users_faveplayers", onDelete: "CASCADE"});
+      models.user.belongsToMany(models.fave_match, {through: "users_favematches", onDelete: "CASCADE"});
+      models.user.belongsToMany(models.fave_champion, {through: "users_favechampions", onDelete: "CASCADE"});
+      models.user.belongsToMany(models.fave_mode, {through: "users_favemodes", onDelete: "CASCADE"});
     }
   };
   user.init({
