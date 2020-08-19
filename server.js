@@ -113,6 +113,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
 
 app.use('/auth', require('./routes/auth'));
 app.use('/champs', require('./routes/champs'));
+app.use('/faves', require('./routes/faves'));
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {

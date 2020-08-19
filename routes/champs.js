@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const fetch = require("node-fetch");
 const db = require("../models");
-const passport = require("../config/ppConfig");
 const request = require("request"); //alternative to axios
 const cheerio = require("cheerio"); //import cheerio
 const URL = "https://na.leagueoflegends.com/en-us/champions/";
