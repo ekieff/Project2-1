@@ -9,6 +9,8 @@ router.get("/:id/champs", function(req, res)
 {
     console.log("YEET");
     let bodyClass = "ALL-CHAMPIONS";
+    let myId = req.user.id;
+    console.log("YEEEEET" + myId);
 
     db.user.findOne(
     {
@@ -43,7 +45,7 @@ router.get("/:id/champs", function(req, res)
                     }
                 })
             })
-            res.render("faves/faveChamps", { bodyClass, faveChamps });
+            res.render("faves/faveChamps", { bodyClass, faveChamps, user, myId });
         })
         .catch(err =>
         {
