@@ -67,7 +67,7 @@ app.get('/', (req, res) => {
 
     gameplay.forEach(arrayElement =>
     {
-      if (arrayElement.data.is_video && !arrayElement.data.over_18 && arrayElement.data.media.reddit_video.duration < 45)
+      if (arrayElement.data.is_video && !arrayElement.data.over_18 && arrayElement.data.media.reddit_video.duration < 45 && arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/8vgc2ildd5i51/DASH_480.mp4?source=fallback")
       {
         gameplayVideos.push(arrayElement.data.media.reddit_video);
         gameplayPost.push(arrayElement.data);
