@@ -29,22 +29,31 @@ router.get("/:id/champs", function(req, res)
         })
         .then(data =>
         {
+            let faveChamps = [];
             let allChamps = data.data;
-
-
+            let champProperties = Object.getOwnPropertyNames(allChamps);
 
             user.favechampions.forEach(champ =>
             {
-    
+                champProperties.forEach(champProperty =>
+                {
+                    if (champ.name === allChamps[champProperty].name)
+                    {
+                        faveChamps.push(allChamps[champProperty]);
+                    }
+                })
             })
+            res.render("faves/faveChamps", { bodyClass, faveChamps });
+        })
+        .catch(err =>
+        {
+            console.log("ERROR: FETCHING CHAMPS FOR FAVE CHAMPS FROM API", err);
         })
 
-
-        res.render("faves/champs", { bodyClass });
     })
     .catch(err =>
     {
-        console.log("ERROR: USER NOT FOUND FROM ID", err);
+        console.log("ERROR: USER NOT FOUND FROM ID OR FAVE CHAMP ISSUE", err);
     });
 });
 
