@@ -12,10 +12,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       accountId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       summonerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       region: {
         type: Sequelize.STRING

@@ -61,7 +61,7 @@ router.post("/champs/:email/:champKey", function(req, res)
                 }
             });
 
-            db.fave_champion.findOrCreate(
+            db.favechampion.findOrCreate(
             {
                 where:
                 {
@@ -71,7 +71,7 @@ router.post("/champs/:email/:champKey", function(req, res)
             .then(([faveChamp, created]) =>
             {
                 console.log(created);
-                user.addFave_champion(faveChamp)
+                user.addFavechampion(faveChamp)
                 .then(relationship =>
                 {
                     console.log("The relationship is: ", relationship);

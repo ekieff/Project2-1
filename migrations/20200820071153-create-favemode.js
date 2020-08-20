@@ -1,18 +1,15 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users_favemodes', {
+    await queryInterface.createTable('favemodes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER
-      },
-      fave_modeId: {
-        type: Sequelize.INTEGER
+      name: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -25,6 +22,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users_favemodes');
+    await queryInterface.dropTable('favemodes');
   }
 };

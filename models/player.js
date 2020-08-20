@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   player.init({
     username: DataTypes.STRING,
-    accountId: DataTypes.INTEGER,
-    summonerId: DataTypes.INTEGER,
+    accountId: DataTypes.STRING,
+    summonerId: DataTypes.STRING,
     region: DataTypes.STRING,
     rank: DataTypes.STRING,
     level: DataTypes.INTEGER,

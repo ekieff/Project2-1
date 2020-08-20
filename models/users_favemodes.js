@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   users_favemodes.init({
     userId: DataTypes.INTEGER,
-    fave_modeId: DataTypes.INTEGER
+    favemodeId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'users_favemodes',

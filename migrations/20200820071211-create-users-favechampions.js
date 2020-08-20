@@ -1,15 +1,18 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('fave_champions', {
+    await queryInterface.createTable('users_favechampions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      userId: {
+        type: Sequelize.INTEGER
+      },
+      favechampionId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -22,6 +25,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('fave_champions');
+    await queryInterface.dropTable('users_favechampions');
   }
 };
