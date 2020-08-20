@@ -130,5 +130,42 @@ router.post("/:email/:champKey", function(req, res)
     });
 })
 
+router.delete("/:champKey/:userId", function(req, res)
+{
+    db.user.findOne(
+    {
+        where:
+        {
+            id: req.params.userId
+        },
+        include: [db.favechampion]
+    })
+    .then(user =>
+    {
+        user.favechampions.forEach(champ =>
+        {
+            
+        })
+
+        db.favechampion.destroy(
+        {
+            where: 
+            {
+                id: req.params.id 
+            }
+        })
+        .then(destroyedFaveChamp =>
+        {
+            res.redirect(`/faveChamps/${user.id}`);
+        })
+        .catch(err =>
+        {
+            console.log("ERROR: DELETION PROCESS FAILED", err);
+        });
+
+
+
+    })
+})
 
 module.exports = router;

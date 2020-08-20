@@ -17,7 +17,7 @@ else
                     <a class="faveChamps-link" href="/champs/<%= champ.id %>">See More Info</a>    
                 </div>
                 <img class="faveChamps-splash" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= champ.id %>_0.jpg">
-                <form method="POST" action="/faveChamps/<%= champ.key %>/?_method=DELETE">
+                <form method="POST" action="/faveChamps/<%= champ.key %>/<%= user.id %>/?_method=DELETE">
                     <input type="submit" value="DELETE FAVE">
                 </form>
             </li>
