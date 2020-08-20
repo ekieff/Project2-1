@@ -8,6 +8,7 @@ const SECRET_SESSION = process.env.SECRET_SESSION;
 const passport = require('./config/ppConfig');
 const flash = require("connect-flash");
 const db = require('./models')
+const methodOverride = require("method-override");
 
 //require the authorization middleware at the top of the page
 const isLoggedIn = require("./middleware/isLoggedIn");
@@ -18,6 +19,7 @@ app.use(require('morgan')('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 app.use(layouts);
+app.use(methodOverride("_method"));
 
 //secret: what we are actually giving the user to use our site
 //resave: save the session even if it's modified, make this false
