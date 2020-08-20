@@ -9,7 +9,7 @@
     <% }
     else
     { %>
-        <form class="faves" method="POST" action="/faves/champs/<%= currentUser.dataValues.email %>/<%= theChamp.key %>">
+        <form class="faves" method="POST" action="/faveChamps/<%= currentUser.dataValues.email %>/<%= theChamp.key %>">
             <input type="submit" value="Add to Faves">
         </form>
     <% } %>

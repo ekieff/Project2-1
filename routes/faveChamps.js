@@ -5,7 +5,7 @@ const db = require("../models");
 const passport = require("../config/ppConfig");
 
 
-router.get("/:id/champs", function(req, res)
+router.get("/:id", function(req, res)
 {
     console.log("YEET");
     let bodyClass = "ALL-CHAMPIONS";
@@ -59,7 +59,7 @@ router.get("/:id/champs", function(req, res)
     });
 });
 
-router.post("/champs/:email/:champKey", function(req, res)
+router.post("/:email/:champKey", function(req, res)
 {
     //console.log(req.params.email);
     db.user.findOne(
@@ -106,7 +106,7 @@ router.post("/champs/:email/:champKey", function(req, res)
                 .then(relationship =>
                 {
                     console.log("The relationship is: ", relationship);
-                    res.redirect(`/faves/${user.id}/champs`);
+                    res.redirect(`/faveChamps/${user.id}`);
                 })
                 .catch(err =>
                 {
