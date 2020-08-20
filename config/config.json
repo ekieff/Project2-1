@@ -19,6 +19,6 @@
     "database": "league_of_L",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "use_env_variable": "postgres://uflqnfzyimnfxs:ca486616b78271b4a8f9d9ae4f82f5aaaf851973b4febfec569b379a2ef76c81@ec2-52-22-94-132.compute-1.amazonaws.com:5432/dcfrmskjo5dile"
+    "use_env_variable": "DATABASE_URL"
   }
 }
