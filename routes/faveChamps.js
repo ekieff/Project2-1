@@ -7,10 +7,10 @@ const db = require("../models");
 
 router.get("/:id", function(req, res)
 {
-    console.log("YEET");
     let bodyClass = "ALL-CHAMPIONS";
     let myId = req.user.id;
-    console.log("YEEEEET" + myId);
+    let siteId = req.params.id;
+
 
     db.user.findOne(
     {
@@ -44,7 +44,7 @@ router.get("/:id", function(req, res)
                     }
                 })
             })
-            res.render("faves/faveChamps", { bodyClass, faveChamps, user, myId });
+            res.render("faves/faveChamps", { bodyClass, faveChamps, user, myId, siteId });
         })
         .catch(err =>
         {
@@ -58,14 +58,14 @@ router.get("/:id", function(req, res)
     });
 });
 
-router.post("/:email/:champKey", function(req, res)
+router.post("/:champKey", function(req, res)
 {
     //console.log(req.params.email);
     db.user.findOne(
     {
         where:
         {
-            email: req.params.email
+            id: req.user.id
         }
     })
     .then(user => 
@@ -130,7 +130,7 @@ router.post("/:email/:champKey", function(req, res)
     });
 })
 
-router.delete("/:champKey/:userId", function(req, res)
+router.delete("/:champKey", function(req, res)
 {   
     console.log("ENTERING DELETE ROUTE");
 
@@ -149,7 +149,7 @@ router.delete("/:champKey/:userId", function(req, res)
             where: 
             {
                 favechampionId: champId,
-                userId: req.params.userId
+                userId: req.user.id
             }
         })
         .then(destroyedFaveChamp =>

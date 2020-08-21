@@ -1,33 +1,29 @@
-<% if (false) //myId !== user.id
-{ %>
-    <h1>YOU DO NOT HAVE PERMISSION TO ACCESS THIS PROFILE</h1>
-<% }
-else
-{ %>
-    <h1 class="faveChamps-title"><%= user.name %>'s Fave Champions</h1>
-    
-    <hr class="in-title">
-    
+<h1 class="faveChamps-title"><%= user.name %>'s Fave Champions</h1>
 
-    <div class="faveChamp-cards row row-cols-1 row-cols-md-3">
-        <% faveChamps.forEach(champ =>
-        { %>
-        <div class="col mb-4">
-            <div class="card each-faveChamp-card">
-                <img class="card-img-top faveChamps-splash" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= champ.id %>_0.jpg">
-                <div class="card-body">
-                    <h3 class="card-title faveChamp-name"><%= champ.name %></h3>
-                </div>
-                <div class="card-footer faveChamps-buttons">
+<hr class="in-title">
+
+
+<div class="faveChamp-cards row row-cols-1 row-cols-md-3">
+    <% faveChamps.forEach(champ =>
+    { %>
+    <div class="col mb-4">
+        <div class="card each-faveChamp-card">
+            <img class="card-img-top faveChamps-splash" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= champ.id %>_0.jpg">
+            <div class="card-body">
+                <h3 class="card-title faveChamp-name"><%= champ.name %></h3>
+            </div>
+            <div class="card-footer faveChamps-buttons">
+                <% if (myId == siteId)
+                { %>
                     <form class="faveChamp-form" method="GET" action="/champs/<%= champ.id %>">
                         <input type="submit" value="Champion Page">
                     </form>
-                    <form class="faveChamp-form" method="POST" action="/faveChamps/<%= champ.key %>/<%= user.id %>/?_method=DELETE">
+                    <form class="faveChamp-form" method="POST" action="/faveChamps/<%= champ.key %>/?_method=DELETE">
                         <input type="submit" value="REMOVE">
                     </form>
-                </div>
+                <% } %>
             </div>
         </div>
-        <% }) %>
     </div>
-<% } %>
+    <% }) %>
+</div>
