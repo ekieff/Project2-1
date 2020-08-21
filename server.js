@@ -168,22 +168,37 @@ app.get('/profile', isLoggedIn, (req, res) =>
         })
         .then(statsData =>
         {
+          let soloIndex;
+          let flexIndex;
+
+          for (let i = 0; i < statsData.length; i++)
+          {
+            if (statsData[i].queueType === "RANKED_SOLO_5x5")
+            {
+              soloIndex = i;
+            }
+            else
+            {
+              flexIndex = i;
+            }
+          }
+
           const soloRankStats =
           {
-            username: statsData[0].summonerName,
-            rank: `${statsData[0].tier} ${statsData[0].rank}`,
-            LP: statsData[0].leaguePoints,
-            winRate: `${statsData[0].wins} wins (${(statsData[0].wins + statsData[0].losses)} games)`
+            username: statsData[soloIndex].summonerName,
+            rank: `${statsData[soloIndex].tier} ${statsData[soloIndex].rank}`,
+            LP: statsData[soloIndex].leaguePoints,
+            winRate: `${statsData[soloIndex].wins} wins (${(statsData[soloIndex].wins + statsData[soloIndex].losses)} games)`
           }
 
           const flexRankStats =
           {
-            username: statsData[1].summonerName,
-            rank: `${statsData[1].tier} ${statsData[1].rank}`,
-            LP: statsData[1].leaguePoints,
-            winRate: `${statsData[1].wins} wins (${(statsData[1].wins + statsData[1].losses)} games)`
+            username: statsData[flexIndex].summonerName,
+            rank: `${statsData[flexIndex].tier} ${statsData[flexIndex].rank}`,
+            LP: statsData[flexIndex].leaguePoints,
+            winRate: `${statsData[flexIndex].wins} wins (${(statsData[flexIndex].wins + statsData[flexIndex].losses)} games)`
           }
-          
+
           db.favechampion.findAll(
           {
             where:
