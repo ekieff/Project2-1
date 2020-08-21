@@ -4,30 +4,45 @@
 
 
 <div class="faveChamp-cards row row-cols-1 row-cols-md-3">
-    <% if (soloStats !== null || soloStats !== undefined)
-    { 
-        for (let i = 0; i < soloStats.length; i++)
-        { %>
-            <div class="col mb-4">
-                <div class="card each-faveChamp-card">
-                    <div class="card-body">
-                        <h3 class="card-title faveChamp-name"><%= soloStats[i].username %></h3>
-                        <p class="faveChamp-stats"><%= soloStats[i].rank %></p>
-                        <p class="faveChamp-stats"><%= soloStats[i].LP %></p>
-                        <p class="faveChamp-stats"><%= soloStats[i].winRate %></p>
-                    </div>
-                    <% if (myId == siteId)
-                    { %>
-                        <div class="card-footer">
-                            <div class="faveChamps-buttons">
-                                <form class="faveChamp-form" method="POST" action="/favePlayers/<%= soloStats[0].username %>/?_method=DELETE">
-                                    <input type="submit" value="DELETE">
-                                </form>
-                            </div>
-                        </div>
-                    <% } %>
+    <% for (let i = 0; i < ourPlayers.length; i++)
+    { %>
+        <div class="col mb-4">
+            <div class="card each-faveChamp-card">
+                <div class="card-body">
+                    <h3 class="card-title faveChamp-name"><%= ourPlayers[i].username %></h3>
+                    
+                    <% let playerIndex;
+                    for (let j = 0; j < soloStats.length; j++)
+                    {
+                        if (soloStats[j].username.toLowerCase() === ourPlayers[i].username.toLowerCase())
+                        {
+                            playerIndex = j;
+                        }
+                    } %>
+                    
+                    <h5>Solo Stats</h5>
+                    <p class="faveChamp-stats"><%= soloStats[0].rank %></p>
+                    <p class="faveChamp-stats"><%= soloStats[0].LP %></p>
+                    <p class="faveChamp-stats"><%= soloStats[0].winRate %></p>
+                    <h5>Flex Stats</h5>
+                    <p class="faveChamp-stats"><%= flexStats[0].rank %></p>
+                    <p class="faveChamp-stats"><%= flexStats[0].LP %></p>
+                    <p class="faveChamp-stats"><%= flexStats[0].winRate %></p>
+                    
                 </div>
+
+                <% if (myId == siteId)
+                { %>
+                    <div class="card-footer">
+                        <div class="faveChamps-buttons">
+                            <form class="faveChamp-form" method="POST" action="/favePlayers/<%= ourPlayers[i].username %>/?_method=DELETE">
+                                <input type="submit" value="DELETE">
+                            </form>
+                        </div>
+                    </div>
+                <% } %>
+
             </div>
-        <% }
-    } %>
+        </div>
+    <% } %>
 </div>

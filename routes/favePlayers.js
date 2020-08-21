@@ -25,36 +25,99 @@ router.get("/:id", function(req, res)
         let ourPlayers = user.faveplayers;
         let soloStats = [];
         let flexStats = [];
-
-        ourPlayers.forEach(player =>
+        
+        for (let i = 0; i <= ourPlayers.length; i++)
         {
-            fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${player.summonerId}?api_key=${API_KEY}`)
+            //console.log(player.summonerId);
+
+            if (i = ourPlayers.length)
+            {
+                console.log("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET");
+                console.log(soloStats, flexStats)
+                console.log("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET");
+                res.render('faves/favePlayers', { bodyClass, soloStats, flexStats, myId, siteId, user, ourPlayers });
+            }
+
+            fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${ourPlayers[i].summonerId}?api_key=${API_KEY}`)
             .then(statsResponse =>
             {
                 return statsResponse.json();
             })
             .then(statsData =>
             {
-                if (statsData == null || statsData == undefined || statsData.length === 1)
+                console.log("WE ARE IN BOISSSSSSSSSSSSS");
+                //console.log(statsData);
+                if (!(statsData.length >= 1))
                 {
                     const soloRankStats = 
                     {
-                        username: player.username,
-                        rank: "NO RANKED GAMES DATA",
-                        LP: "0",
+                        username: ourPlayers[i].username,
+                        rank: "NO SOLO RANKED GAMES DATA",
+                        LP: 0,
                         winRate: "N/A"
                     };
 
                     const flexRankStats = 
                     {
-                        username: player.username,
-                        rank: "NO RANKED GAMES DATA",
-                        LP: "0",
+                        username: ourPlayers[i].username,
+                        rank: "NO FLEX RANKED GAMES DATA",
+                        LP: 0,
                         winRate: "N/A"
                     };
-
+                    
                     soloStats.push(soloRankStats);
                     flexStats.push(flexRankStats);
+
+                    //console.log(soloStats, flexStats);
+                }
+                else if (statsData.length = 1)
+                {
+                    if (statsData[0].queueType === "RANKED_SOLO_5x5")
+                    {
+                        const soloRankStats =
+                        {
+                            username: statsData[0].summonerName,
+                            rank: `${statsData[0].tier} ${statsData[0].rank}`,
+                            LP: statsData[0].leaguePoints,
+                            winRate: `${statsData[0].wins} wins (${(statsData[0].wins + statsData[0].losses)} games)`
+                        };
+
+                        const flexRankStats = 
+                        {
+                            username: statsData[0].summonerName,
+                            rank: "NO FLEX RANKED GAMES DATA",
+                            LP: 0,
+                            winRate: "N/A"
+                        };
+
+                        soloStats.push(soloRankStats);
+                        flexStats.push(flexRankStats);
+                        
+                        //console.log(soloStats, flexStats);
+                    }
+                    else
+                    {
+                        const flexRankStats =
+                        {
+                            username: statsData[0].summonerName,
+                            rank: `${statsData[0].tier} ${statsData[0].rank}`,
+                            LP: statsData[0].leaguePoints,
+                            winRate: `${statsData[0].wins} wins (${(statsData[0].wins + statsData[0].losses)} games)`
+                        };
+
+                        const soloRankStats = 
+                        {
+                            username: statsData[0].summonerName,
+                            rank: "NO SOLO RANKED GAMES DATA",
+                            LP: 0,
+                            winRate: "N/A"
+                        }
+
+                        soloStats.push(soloRankStats);
+                        flexStats.push(flexRankStats);
+
+                        //console.log(soloStats, flexStats);
+                    }
                 }
                 else
                 {
@@ -75,7 +138,7 @@ router.get("/:id", function(req, res)
             
                     const soloRankStats =
                     {
-                        username: player.username,
+                        username: ourPlayers[i].username,
                         rank: `${statsData[soloIndex].tier} ${statsData[soloIndex].rank}`,
                         LP: statsData[soloIndex].leaguePoints,
                         winRate: `${statsData[soloIndex].wins} wins (${(statsData[soloIndex].wins + statsData[soloIndex].losses)} games)`
@@ -83,7 +146,7 @@ router.get("/:id", function(req, res)
             
                     const flexRankStats =
                     {
-                        username: player.username,
+                        username: ourPlayers[i].username,
                         rank: `${statsData[flexIndex].tier} ${statsData[flexIndex].rank}`,
                         LP: statsData[flexIndex].leaguePoints,
                         winRate: `${statsData[flexIndex].wins} wins (${(statsData[flexIndex].wins + statsData[flexIndex].losses)} games)`
@@ -92,16 +155,14 @@ router.get("/:id", function(req, res)
                     soloStats.push(soloRankStats);
                     flexStats.push(flexRankStats);
                 }
+                console.log(soloStats, flexStats);
             })
             .catch(err =>
             {
                 console.log("ERROR: FETCHING RANK STATS", err);
             });
 
-        });
-
-        res.render('faves/favePlayers', { bodyClass, soloStats, flexStats, myId, siteId, user });
-
+        }
     })
     .catch(err =>
     {

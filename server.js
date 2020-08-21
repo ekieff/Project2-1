@@ -10,6 +10,10 @@ const flash = require("connect-flash");
 const db = require('./models')
 const methodOverride = require("method-override");
 
+const request = require("request"); //alternative to axios
+const cheerio = require("cheerio"); //import cheerio
+const URL = "https://na.leagueoflegends.com/en-us/champions/";
+
 let API_KEY = process.env.API_KEY;
 
 //require the authorization middleware at the top of the page
@@ -52,7 +56,7 @@ app.use(function(req, res, next)
 
 app.get('/', (req, res) => {
   console.log(res.locals.alerts);
-  let bodyClass = "ALL-CHAMPIONS";
+  let bodyClass = "ONE-CHAMPION";
 
   fetch("https://www.reddit.com/r/leagueoflegends.json?limit=70")
   .then(response =>
@@ -95,7 +99,19 @@ app.get('/', (req, res) => {
         }
       });
       //console.log(goodImageData.length);
-      res.render('index', { alerts: res.locals.alerts, bodyClass, gameplayVideos, gameplayPost, goodImageData });
+
+      let allImages = [];
+      request(URL, (error, response, body) =>
+      {
+        let $ = cheerio.load(body);
+        let images = $(".style__ImageContainer-sc-12h96bu-1");
+        images.each((index, element) =>
+        {
+          allImages.push($(element).find("img").attr("src"));
+        })
+        //console.log(eachImage);
+        res.render('index', { alerts: res.locals.alerts, bodyClass, gameplayVideos, gameplayPost, goodImageData, allImages });  
+      });
     })
     .catch(err =>
     {

@@ -25,6 +25,45 @@
 
 <h2 class="home-champions">Champions</h2>
 
+<div class="home-champs-splash">
+    <% for (let j = 1; j <= 5; j++)
+    { %>
+        <div id="carouselExampleFade" class="carousel slide carousel-fade home-splash-art-<%= j %>" data-pause="false" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-interval="<%= Math.random()*5000 + 4000 %>">
+                    <img src="<%= allImages[(Math.floor(allImages.length / 10) * (j - 1))] %>" class="d-block w-100 home-splash-img" alt="...">
+                </div>
+                <% for (let i = (Math.floor(goodImageData.length / 10)) * (j - 1) + 1; i < (Math.floor(allImages.length / 10)) * j; i++)
+                { %>
+                    <div class="carousel-item" data-interval="<%= Math.random()*5000 + 4000 %>">
+                        <img src="<%= allImages[i] %>" class="d-block w-100 home-splash-img" alt="...">
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    <% } %>
+</div>
+<div class="home-champs-splash">
+    <% for (let j = 6; j <= 10; j++)
+    { %>
+        <div id="carouselExampleFade" class="carousel slide carousel-fade home-splash-art-<%= j %>" data-pause="false" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-interval="<%= Math.random()*5000 + 4000 %>">
+                    <img src="<%= allImages[(Math.floor(allImages.length / 10) * (j - 1))] %>" class="d-block w-100 home-splash-img" alt="...">
+                </div>
+                <% for (let i = (Math.floor(goodImageData.length / 10)) * (j - 1) + 1; i < (Math.floor(allImages.length / 10)) * j; i++)
+                { %>
+                    <div class="carousel-item" data-interval="<%= Math.random()*5000 + 4000 %>">
+                        <img src="<%= allImages[i] %>" class="d-block w-100 home-splash-img" alt="...">
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<a class="home-champs" href="/champs">See All Champions</a>
+
 <hr class="in-title">
 
 <h2 class="home-modes">Game Modes</h2>

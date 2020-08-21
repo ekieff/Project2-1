@@ -1,14 +1,16 @@
-/* HOME PAGE STYLING */
 .home-title
 {
   margin-top: 4vw;
   font-size: 4vw;
   margin-left: 5vw;
-  margin-right: 7vw;
+  margin-right: 5vw;
   display: flex;
   justify-content: center;
 }
 
+
+
+/* STYLING FOR HOME PAGE HIGHLIGHTS */
 .home-highlights
 {
   margin-left: 5vw;
@@ -25,31 +27,81 @@
   margin: 3vw;
   margin-left: 18.4vw;
 }
+/* STYLING FOR HOME PAGE HIGHLIGHTS */
 
+
+
+/* STYLING FOR HOME CHAMPION IMAGES */
 .home-champions
 {
   margin: 4vw;
-  margin-right: 7vw;
+  margin-right: 4.2vw;
   margin-bottom: 2vw;
   font-size: 2.5vw;
   display: flex;
   justify-content: center;
 }
 
+.home-champs
+{
+  margin: 0 4.2vw 2vw 4vw;
+  font-size: 1.5vw;
+  display: flex;
+  justify-content: center;
+  color: rgb(255, 215, 130);
+}
+
+.home-champs:hover
+{
+  color: rgb(255, 215, 130);
+}
+
+.home-champs-splash
+{
+  display: flex;
+  justify-content: center;
+}
+
+.home-splash-art-1, .home-splash-art-2, .home-splash-art-3, .home-splash-art-4, .home-splash-art-5
+{
+  width: 17vw;
+  padding: 2vw;
+}
+
+.home-splash-art-6, .home-splash-art-7, .home-splash-art-8, .home-splash-art-9, .home-splash-art-10
+{
+  width: 17vw;
+  padding: 2vw;
+}
+
+.home-splash-img
+{
+  width: 17vw;
+  border: 1vw white solid;
+}
+/* STYLING FOR HOME CHAMPION IMAGES */
+
+
+
+/* STYLING FOR HOME GAME MODES */
 .home-modes
 {
   margin: 4vw;
-  margin-right: 7vw;
+  margin-right: 4.2vw;
   margin-bottom: 2vw;
   font-size: 2.5vw;
   display: flex;
   justify-content: center;
 }
+/* STYLING FOR HOME GAME MODES */
 
+
+
+/* STYLING FOR HOME SPLASH ART */
 .home-splashes
 {
   margin: 4vw;
-  margin-right: 7vw;
+  margin-right: 4.2vw;
   margin-bottom: 2vw;
   font-size: 2.5vw;
   display: flex;
@@ -97,5 +149,4 @@
   flex: 25%;
   padding: 0.5vw;
 }
-
-/* HOME PAGE STYLING */
+/* STYLING FOR HOME SPLASH ART */
