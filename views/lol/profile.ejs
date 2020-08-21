@@ -7,18 +7,16 @@
     <div class="solo-stats">
         <h3 class="profile-ranked-title">Ranked Solo Queue</h3>
         <ul class="stats-list">
-            <li><%= soloRankStats.username %></li>
             <li><%= soloRankStats.rank %></li>
-            <li><%= soloRankStats.LP %></li>
+            <li><%= soloRankStats.LP %> LP</li>
             <li><%= soloRankStats.winRate %></li>
         </ul>
     </div>
     <div class="flex-stats">
         <h3 class="profile-ranked-title">Ranked Flex Queue</h3>
         <ul class="stats-list">
-            <li><%= flexRankStats.username %></li>
             <li><%= flexRankStats.rank %></li>
-            <li><%= flexRankStats.LP %></li>
+            <li><%= flexRankStats.LP %> LP</li>
             <li><%= flexRankStats.winRate %></li>
         </ul>
     </div>
@@ -38,11 +36,11 @@
         { %>
             <li class="each-profile-teammate">
                 <h5><%= player.username %></h3>
-                <a class="profile-teammates-link" href="/favePlayers/<%= player.accountId %>">More Info</a>
             </li>
         <% }) %> 
     <% } %> 
 </ul>
+<a class="profile-teammates-link" href="/favePlayers/<%= currentUser.dataValues.id %>"></a>
 
 
 <hr class="in-page">

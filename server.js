@@ -191,7 +191,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
             rank: `${statsData[soloIndex].tier} ${statsData[soloIndex].rank}`,
             LP: statsData[soloIndex].leaguePoints,
             winRate: `${statsData[soloIndex].wins} wins (${(statsData[soloIndex].wins + statsData[soloIndex].losses)} games)`
-          }
+          };
 
           const flexRankStats =
           {
@@ -199,7 +199,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
             rank: `${statsData[flexIndex].tier} ${statsData[flexIndex].rank}`,
             LP: statsData[flexIndex].leaguePoints,
             winRate: `${statsData[flexIndex].wins} wins (${(statsData[flexIndex].wins + statsData[flexIndex].losses)} games)`
-          }
+          };
 
           db.favechampion.findAll(
           {
