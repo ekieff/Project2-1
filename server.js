@@ -251,6 +251,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
 app.use('/auth', require('./routes/auth'));
 app.use('/champs', require('./routes/champs'));
 app.use('/faveChamps', require('./routes/faveChamps'));
+app.use('/favePlayers', require('./routes/favePlayers'));
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {

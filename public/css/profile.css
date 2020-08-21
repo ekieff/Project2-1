@@ -15,6 +15,7 @@
   margin-right: 7vw;
 }
 
+/* STYLING FOR STATS ON PROFILE */
 .profile-stats
 {
   margin-bottom: 1.2vw;
@@ -39,7 +40,11 @@
   font-size: 1.5vw;
   padding-left: 1.5vw;
 }
+/* STYLING FOR STATS ON PROFILE */
 
+
+
+/* STYLING FOR FAVECHAMPS ON PROFILE */
 .profile-champs
 {
   font-size: 1.7vw;
@@ -79,3 +84,4 @@
 {
   color: rgb(111, 234, 250);
 }
+/* STYLING FOR FAVECHAMPS ON PROFILE */

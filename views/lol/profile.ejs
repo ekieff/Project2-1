@@ -27,6 +27,11 @@
 <hr class="in-page">
 
 <h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Favorite Teammates</h2>
+<form method="POST" action="/favePlayers">
+    <input type="text" name="summonerName" value="">
+    <input type="submit" value="Add Favorite Teammate">
+</form>
+
 
 <hr class="in-page">
 
