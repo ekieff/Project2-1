@@ -186,7 +186,7 @@ router.delete("/:champKey", function(req, res)
 
 });
 
-router.put("/:champKey", function(req, res)
+router.put("/top/:champKey", function(req, res)
 {
     db.favechampion.update(
     {
@@ -201,12 +201,34 @@ router.put("/:champKey", function(req, res)
     })
     .then((updatedChamp) =>
     {
-        res.json(updatedChamp);
+        res.redirect(`/faveChamps/${req.user.id}`);
         //console.log(champ);
     })
     .catch(() =>
     {
+    });
+});
+
+router.put("/notop/:champKey", function(req, res)
+{
+    db.favechampion.update(
+    {
+        topFive: "false"
+    },
+    {
+        where:
+        {
+            champKey: req.params.champKey,
+            user: req.user.id
+        }
+    })
+    .then((updatedChamp) =>
+    {
         res.redirect(`/faveChamps/${req.user.id}`);
+        //console.log(champ);
+    })
+    .catch(() =>
+    {
     });
 });
 
