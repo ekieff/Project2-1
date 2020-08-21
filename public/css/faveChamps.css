@@ -51,10 +51,10 @@
   font-size: 1.3vw;
 }
 
-.faveChamp-page
+.faveChamps-changeTop
 {
   display: flex;
   justify-content: center;
-  margin-bottom: 0.5vw;
+  margin-bottom: 1vw;
   font-size: 1.3vw;
 }

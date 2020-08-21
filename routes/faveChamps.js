@@ -96,7 +96,9 @@ router.post("/:champKey", function(req, res)
                 where:
                 {
                     name: theChamp.name,
-                    champKey: theChamp.key
+                    champKey: theChamp.key,
+                    user: req.user.id,
+                    topFive: "false"
                 }
             })
             .then(([faveChamp, created]) =>
@@ -138,7 +140,8 @@ router.delete("/:champKey", function(req, res)
     {
         where:
         {
-            champKey: req.params.champKey
+            champKey: req.params.champKey,
+            user: req.user.id
         }
     })
     .then(deleteChamp =>
@@ -152,13 +155,28 @@ router.delete("/:champKey", function(req, res)
                 userId: req.user.id
             }
         })
-        .then(destroyedFaveChamp =>
+        .then(destroyedFaveChampAssociation =>
         {
-            res.redirect(`/faveChamps/${req.user.id}`);
+            db.favechampion.destroy(
+            {
+                where: 
+                {
+                    champKey: req.params.champKey,
+                    user: req.user.id
+                }
+            })
+            .then(destroyedFaveChamp =>
+            {
+                res.redirect(`/faveChamps/${req.user.id}`);
+            })
+            .catch(err =>
+            {
+                console.log("ERROR: DELETION PROCESS FOR FAVECHAMP FAILED", err);
+            })
         })
         .catch(err =>
         {
-            console.log("ERROR: DELETION PROCESS FAILED", err);
+            console.log("ERROR: DELETION PROCESS FOR ASSOCIATION FAILED", err);
         });
     })
     .catch(err =>
@@ -170,40 +188,25 @@ router.delete("/:champKey", function(req, res)
 
 router.put("/:champKey", function(req, res)
 {
-    db.user.findOne(
+    db.favechampion.update(
+    {
+        topFive: "true"
+    },
     {
         where:
         {
-            id: req.user.id
-        },
-        include: [db.favechampion]
+            champKey: req.params.champKey,
+            user: req.user.id
+        }
     })
-    .then(user =>
+    .then((updatedChamp) =>
     {
-        let allFaves = user.favechampions;
-        let lastFavesId = allFaves[allFaves.length - 1].id;
-
-        for (let i = allFaves.length - 1; i >= 0; i--)
-        {
-            if (allFaves[i].id >= req.body.topNumber)
-            {
-                allFaves[i].id = lastFavesId + i + 1;
-            }
-        }
-
-        for (let i = 0; i < allFaves.length; i++)
-        {
-            if (allFaves[i].champKey === req.params.champKey)
-            {
-                allFaves[i].id = req.body.topNumber;
-                break;
-            }
-        }
+        res.json(updatedChamp);
+        //console.log(champ);
+    })
+    .catch(() =>
+    {
         res.redirect(`/faveChamps/${req.user.id}`);
-    })
-    .catch(err =>
-    {
-        console.log("ERROR: FAILED TO FIND USER AND CHANGE ID OF TOP FAVECHAMP", err);
     });
 });
 

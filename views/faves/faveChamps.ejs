@@ -19,12 +19,12 @@
             <% if (myId == siteId)
             { %>
                 <div class="card-footer">
-                    <form class="faveChamp-page" method="GET" action="/champs/<%= champ.id %>">
-                        <input type="submit" value="Champion Page">
+                    <form class="faveChamps-changeTop" method="POST" action="/faveChamps/<%= champ.key %>/?_method=PUT">
+                        <input type="submit" value="Add to Top 5">
                     </form>
                     <div class="faveChamps-buttons">
-                        <form class="faveChamp-form" method="POST" action="/faveChamps/<%= champ.key %>/?_method=PUT">
-                            <input type="submit" value="Add to Top 5">
+                        <form class="faveChamp-form" method="GET" action="/champs/<%= champ.id %>">
+                            <input type="submit" value="Champion Page">
                         </form>
                         <form class="faveChamp-form" method="POST" action="/faveChamps/<%= champ.key %>/?_method=DELETE">
                             <input type="submit" value="REMOVE">

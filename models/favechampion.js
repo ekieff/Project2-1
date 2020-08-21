@@ -16,7 +16,9 @@ module.exports = (sequelize, DataTypes) => {
   };
   favechampion.init({
     name: DataTypes.STRING,
-    champKey: DataTypes.STRING
+    champKey: DataTypes.STRING,
+    topFive: DataTypes.STRING,
+    user: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'favechampion',

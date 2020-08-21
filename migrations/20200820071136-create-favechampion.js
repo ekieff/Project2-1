@@ -14,6 +14,12 @@ module.exports = {
       champKey: {
         type: Sequelize.STRING
       },
+      topFive: {
+        type: Sequelize.STRING
+      },
+      user: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
