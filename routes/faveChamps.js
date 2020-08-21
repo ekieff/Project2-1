@@ -128,7 +128,7 @@ router.post("/:champKey", function(req, res)
     {
         console.log("ERROR: USER NOT FOUND", err);
     });
-})
+});
 
 router.delete("/:champKey", function(req, res)
 {   
@@ -166,6 +166,45 @@ router.delete("/:champKey", function(req, res)
         console.log("ERROR: CHAMPION TO DELETE NOT FOUND", err);
     });
 
-})
+});
+
+router.put("/:champKey", function(req, res)
+{
+    db.user.findOne(
+    {
+        where:
+        {
+            id: req.user.id
+        },
+        include: [db.favechampion]
+    })
+    .then(user =>
+    {
+        let allFaves = user.favechampions;
+        let lastFavesId = allFaves[allFaves.length - 1].id;
+
+        for (let i = allFaves.length - 1; i >= 0; i--)
+        {
+            if (allFaves[i].id >= req.body.topNumber)
+            {
+                allFaves[i].id = lastFavesId + i + 1;
+            }
+        }
+
+        for (let i = 0; i < allFaves.length; i++)
+        {
+            if (allFaves[i].champKey === req.params.champKey)
+            {
+                allFaves[i].id = req.body.topNumber;
+                break;
+            }
+        }
+        res.redirect(`/faveChamps/${req.user.id}`);
+    })
+    .catch(err =>
+    {
+        console.log("ERROR: FAILED TO FIND USER AND CHANGE ID OF TOP FAVECHAMP", err);
+    });
+});
 
 module.exports = router;
