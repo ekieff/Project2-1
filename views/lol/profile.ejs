@@ -5,7 +5,7 @@
 <h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Stats</h2>
 <div class="profile-stats">
     <div class="solo-stats">
-        <h3>Ranked Solo Queue</h3>
+        <h3 class="profile-ranked-title">Ranked Solo Queue</h3>
         <ul class="stats-list">
             <li><%= soloRankStats.username %></li>
             <li><%= soloRankStats.rank %></li>
@@ -14,7 +14,7 @@
         </ul>
     </div>
     <div class="flex-stats">
-        <h3>Ranked Flex Queue</h3>
+        <h3 class="profile-ranked-title">Ranked Flex Queue</h3>
         <ul class="stats-list">
             <li><%= flexRankStats.username %></li>
             <li><%= flexRankStats.rank %></li>
@@ -36,7 +36,10 @@
     { %>
         <% allPlayers.forEach(player =>
         { %>
-            <li><%= player.username %></li>
+            <li class="each-profile-teammate">
+                <h5><%= player.username %></h3>
+                <a class="profile-teammates-link" href="/favePlayers/<%= player.accountId %>">More Info</a>
+            </li>
         <% }) %> 
     <% } %> 
 </ul>

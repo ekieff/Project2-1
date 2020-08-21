@@ -17,25 +17,17 @@
 
 
 
-.profile-faveplayers-form
-{
-  margin-left: 7vw;
-  font-size: 0.9vw;
-}
-
-.profile-faveplayers-input
-{
-  text-align: center;  
-  width: 16vw;
-}
-
-
 /* STYLING FOR STATS ON PROFILE */
 .profile-stats
 {
   margin-bottom: 1.2vw;
   margin-left: 5vw;
   margin-right: 7vw;
+}
+
+.profile-ranked-title
+{
+  font-size: 1.7vw;
 }
 
 .solo-stats
@@ -56,6 +48,48 @@
   padding-left: 1.5vw;
 }
 /* STYLING FOR STATS ON PROFILE */
+
+
+
+/* STYLING FOR FAVEPLAYERS ON PROFILE */
+.profile-faveplayers-form
+{
+  margin-left: 7vw;
+  font-size: 0.9vw;
+}
+
+.profile-faveplayers-input
+{
+  text-align: center;  
+  width: 16vw;
+}
+
+.profile-teammates
+{
+  list-style: none;
+  margin-left: 5vw;
+  padding: 0 2vw;
+  font-size: 1.2vw;
+}
+
+.each-profile-teammate
+{
+  display: inline-block;
+  margin-top: 1vw;
+  margin-right: 3.5vw;
+}
+
+h5
+{
+  font-size: 1.5vw;
+  margin: 0;
+}
+
+.profile-teammates-link
+{
+  margin: 0;
+}
+/* STYLING FOR FAVEPLAYERS ON PROFILE */
 
 
 

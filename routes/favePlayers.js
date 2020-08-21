@@ -6,7 +6,7 @@ const db = require("../models");
 let API_KEY = process.env.API_KEY;
 
 
-router.get("/:id", function(req, res)
+router.get("/:accountId", function(req, res)
 {
     
 });
