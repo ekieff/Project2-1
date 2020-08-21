@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   favechampion.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    champKey: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'favechampion',

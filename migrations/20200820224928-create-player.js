@@ -17,22 +17,7 @@ module.exports = {
       summonerId: {
         type: Sequelize.STRING
       },
-      region: {
-        type: Sequelize.STRING
-      },
-      rank: {
-        type: Sequelize.STRING
-      },
       level: {
-        type: Sequelize.INTEGER
-      },
-      games: {
-        type: Sequelize.INTEGER
-      },
-      winRate: {
-        type: Sequelize.INTEGER
-      },
-      kda: {
         type: Sequelize.INTEGER
       },
       createdAt: {

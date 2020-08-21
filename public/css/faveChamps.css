@@ -1,0 +1,44 @@
+.faveChamps-title
+{
+  margin-top: 4vw;
+  font-size: 3vw;
+  margin-left: 5vw;
+  margin-right: 7vw;
+}
+
+.faveChamp-cards
+{
+  margin-left: 5vw;
+  margin-right: 4vw;
+}
+
+.each-faveChamp-card
+{
+  background-image: url("../images/champ-card-bg.jpg");
+  background-size: 100%;
+}
+
+.faveChamp-name
+{
+  font-size: 2vw;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: black;
+}
+
+.faveChamps-splash
+{
+  width: 100%;
+}
+
+.faveChamps-buttons
+{
+  display: flex;
+  justify-content: center;
+}
+
+.faveChamp-form
+{
+  width: fit-content;
+  margin: 0 1vw 0 1vw;
+}

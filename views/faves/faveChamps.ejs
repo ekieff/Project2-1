@@ -8,19 +8,26 @@ else
     
     <hr class="in-title">
     
-    <ul>
+
+    <div class="faveChamp-cards row row-cols-1 row-cols-md-3">
         <% faveChamps.forEach(champ =>
         { %>
-            <li>
-                <div>
-                    <%= champ.name %>
-                    <a class="faveChamps-link" href="/champs/<%= champ.id %>">See More Info</a>    
+        <div class="col mb-4">
+            <div class="card each-faveChamp-card">
+                <img class="card-img-top faveChamps-splash" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= champ.id %>_0.jpg">
+                <div class="card-body">
+                    <h3 class="card-title faveChamp-name"><%= champ.name %></h3>
                 </div>
-                <img class="faveChamps-splash" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= champ.id %>_0.jpg">
-                <form method="POST" action="/faveChamps/<%= champ.key %>/<%= user.id %>/?_method=DELETE">
-                    <input type="submit" value="DELETE FAVE">
-                </form>
-            </li>
+                <div class="card-footer faveChamps-buttons">
+                    <form class="faveChamp-form" method="GET" action="/champs/<%= champ.id %>">
+                        <input type="submit" value="Champion Page">
+                    </form>
+                    <form class="faveChamp-form" method="POST" action="/faveChamps/<%= champ.key %>/<%= user.id %>/?_method=DELETE">
+                        <input type="submit" value="REMOVE">
+                    </form>
+                </div>
+            </div>
+        </div>
         <% }) %>
-    </ul>
+    </div>
 <% } %>

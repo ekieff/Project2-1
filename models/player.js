@@ -18,12 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     accountId: DataTypes.STRING,
     summonerId: DataTypes.STRING,
-    region: DataTypes.STRING,
-    rank: DataTypes.STRING,
-    level: DataTypes.INTEGER,
-    games: DataTypes.INTEGER,
-    winRate: DataTypes.INTEGER,
-    kda: DataTypes.INTEGER
+    level: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'player',

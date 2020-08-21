@@ -10,6 +10,8 @@ const flash = require("connect-flash");
 const db = require('./models')
 const methodOverride = require("method-override");
 
+let API_KEY = process.env.API_KEY;
+
 //require the authorization middleware at the top of the page
 const isLoggedIn = require("./middleware/isLoggedIn");
 
@@ -110,7 +112,99 @@ app.get('/', (req, res) => {
 app.get('/profile', isLoggedIn, (req, res) => 
 {
   let bodyClass = "ALL-CHAMPIONS";
-  res.render('lol/profile', { bodyClass });
+
+  db.user.findOne(
+  {
+    where: 
+    {
+      id: res.locals.currentUser.dataValues.id
+    },
+    include: [db.favechampion]
+  })
+  .then(user =>
+  {
+    //console.log(user);
+    fetch("http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json")
+    .then(response =>
+    {
+      return response.json();
+    })
+    .then(data =>
+    {
+      let faveChamps = [];
+      let allChamps = data.data;
+      let champProperties = Object.getOwnPropertyNames(allChamps);
+
+      user.favechampions.forEach(champ =>
+      {
+        champProperties.forEach(champProperty =>
+        {
+          if (champ.name === allChamps[champProperty].name)
+          {
+            faveChamps.push(allChamps[champProperty]);
+          }
+        })
+      });
+
+      fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${user.name}?api_key=${API_KEY}`)
+      .then(anotherResponse =>
+      {
+        return anotherResponse.json();
+      })
+      .then(userData =>
+      {
+        const account =
+        {
+          username: userData.name,
+          accountId: userData.accountId,
+          summonerId: userData.id,
+          level: userData.summonerLevel
+        }
+
+        fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${account.summonerId}?api_key=${API_KEY}`)
+        .then(statsResponse =>
+        {
+          return statsResponse.json();
+        })
+        .then(statsData =>
+        {
+          const soloRankStats =
+          {
+            username: statsData[0].summonerName,
+            rank: `${statsData[0].tier} ${statsData[0].rank}`,
+            LP: statsData[0].leaguePoints,
+            winRate: `${statsData[0].wins} wins (${(statsData[0].wins + statsData[0].losses)} games)`
+          }
+
+          const flexRankStats =
+          {
+            username: statsData[1].summonerName,
+            rank: `${statsData[1].tier} ${statsData[1].rank}`,
+            LP: statsData[1].leaguePoints,
+            winRate: `${statsData[1].wins} wins (${(statsData[1].wins + statsData[1].losses)} games)`
+          }
+          res.render('lol/profile', { bodyClass, faveChamps, user, soloRankStats, flexRankStats });
+        })
+        .catch(err =>
+        {
+          console.log("ERROR: FETCHING RANK STATS", err);
+        });
+        
+      })
+      .catch(err =>
+      {
+        console.log("ERROR: FETCH LEAGUE ACCOUNT INFO", err);
+      });
+    })
+    .catch(err =>
+    {
+      console.log("ERROR: FETCHING CHAMPS FOR FAVE CHAMPS FROM API FOR PROFILE", err);
+    })
+  })
+  .catch(err =>
+  {
+    console.log("ERROR: FETCHING CHAMPS FOR FAVE CHAMPS FROM API", err);
+  })
 });
 
 app.use('/auth', require('./routes/auth'));

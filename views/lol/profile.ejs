@@ -1,2 +1,52 @@
 <h1 class="profile-title"><%= currentUser.dataValues.name %>'s Profile</h1>
 
+<hr class="in-title">
+
+<h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Stats</h2>
+<div class="profile-stats">
+    <div class="solo-stats">
+        <h3>Ranked Solo Queue</h3>
+        <ul class="stats-list">
+            <li><%= soloRankStats.username %></li>
+            <li><%= soloRankStats.rank %></li>
+            <li><%= soloRankStats.LP %></li>
+            <li><%= soloRankStats.winRate %></li>
+        </ul>
+    </div>
+    <div class="flex-stats">
+        <h3>Ranked Flex Queue</h3>
+        <ul class="stats-list">
+            <li><%= flexRankStats.username %></li>
+            <li><%= flexRankStats.rank %></li>
+            <li><%= flexRankStats.LP %></li>
+            <li><%= flexRankStats.winRate %></li>
+        </ul>
+    </div>
+</div>
+
+<hr class="in-page">
+
+<h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Favorite Teammates</h2>
+
+<hr class="in-page">
+
+<h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Top 5 Favorite Champions</h2>
+
+<ul class="profile-champs">
+    <% for (let i = 0; i < 5 && i < faveChamps.length; i++)
+    { %>
+        <li class="each-profile-champ">
+            <img class="profile-faveChamps-splash" src="http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/<%= faveChamps[i].id %>.png">
+            <p><%= faveChamps[i].name %></p>
+        </li>
+    <% } %>
+    <li><a class="profile-champs-link" href="/faveChamps/<%= currentUser.dataValues.id %>">See More Favorite Champions</a></li>
+</ul>
+
+<hr class="in-page">
+
+<h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Favorite Matches</h2>
+
+<hr class="in-page">
+
+<h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Favorite Game Modes</h2>

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fetch = require("node-fetch");
 const db = require("../models");
-const passport = require("../config/ppConfig");
+// const passport = require("../config/ppConfig");
 
 
 router.get("/:id", function(req, res)
@@ -23,7 +23,6 @@ router.get("/:id", function(req, res)
     .then(user =>
     {
         //console.log(user);
-
         fetch("http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json")
         .then(response =>
         {
@@ -96,7 +95,8 @@ router.post("/:email/:champKey", function(req, res)
             {
                 where:
                 {
-                    name: theChamp.name
+                    name: theChamp.name,
+                    champKey: theChamp.key
                 }
             })
             .then(([faveChamp, created]) =>
@@ -131,41 +131,41 @@ router.post("/:email/:champKey", function(req, res)
 })
 
 router.delete("/:champKey/:userId", function(req, res)
-{
-    db.user.findOne(
+{   
+    console.log("ENTERING DELETE ROUTE");
+
+    db.favechampion.findOne(
     {
         where:
         {
-            id: req.params.userId
-        },
-        include: [db.favechampion]
+            champKey: req.params.champKey
+        }
     })
-    .then(user =>
+    .then(deleteChamp =>
     {
-        user.favechampions.forEach(champ =>
-        {
-            
-        })
-
-        db.favechampion.destroy(
+        let champId = deleteChamp.id;
+        db.users_favechampions.destroy(
         {
             where: 
             {
-                id: req.params.id 
+                favechampionId: champId,
+                userId: req.params.userId
             }
         })
         .then(destroyedFaveChamp =>
         {
-            res.redirect(`/faveChamps/${user.id}`);
+            res.redirect(`/faveChamps/${req.user.id}`);
         })
         .catch(err =>
         {
             console.log("ERROR: DELETION PROCESS FAILED", err);
         });
-
-
-
     })
+    .catch(err =>
+    {
+        console.log("ERROR: CHAMPION TO DELETE NOT FOUND", err);
+    });
+
 })
 
 module.exports = router;
