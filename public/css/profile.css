@@ -15,6 +15,21 @@
   margin-right: 7vw;
 }
 
+
+
+.profile-faveplayers-form
+{
+  margin-left: 7vw;
+  font-size: 0.9vw;
+}
+
+.profile-faveplayers-input
+{
+  text-align: center;  
+  width: 16vw;
+}
+
+
 /* STYLING FOR STATS ON PROFILE */
 .profile-stats
 {

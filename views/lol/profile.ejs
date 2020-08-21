@@ -27,10 +27,19 @@
 <hr class="in-page">
 
 <h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Favorite Teammates</h2>
-<form method="POST" action="/favePlayers">
-    <input type="text" name="summonerName" value="">
+<form class="profile-faveplayers-form" method="POST" action="/favePlayers">
+    <input class="profile-faveplayers-input" type="text" name="summonerName" value="" placeholder="type teammate summoner name here">
     <input type="submit" value="Add Favorite Teammate">
 </form>
+<ul class="profile-teammates">
+    <% if (allPlayers !== null || allPlayers !== undefined)
+    { %>
+        <% allPlayers.forEach(player =>
+        { %>
+            <li><%= player.username %></li>
+        <% }) %> 
+    <% } %> 
+</ul>
 
 
 <hr class="in-page">

@@ -119,7 +119,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
     {
       id: res.locals.currentUser.dataValues.id
     },
-    include: [db.favechampion]
+    include: [db.favechampion, db.faveplayer]
   })
   .then(user =>
   {
@@ -145,6 +145,8 @@ app.get('/profile', isLoggedIn, (req, res) =>
           }
         })
       });
+
+      let allPlayers = user.faveplayers;
 
       fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${user.name}?api_key=${API_KEY}`)
       .then(anotherResponse =>
@@ -219,7 +221,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
                 }
               })
             });
-            res.render('lol/profile', { bodyClass, faveChamps, allTopChamps, user, soloRankStats, flexRankStats });
+            res.render('lol/profile', { bodyClass, faveChamps, allTopChamps, user, soloRankStats, flexRankStats, allPlayers });
           })
           .catch(err =>
           {
