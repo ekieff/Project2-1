@@ -183,7 +183,33 @@ app.get('/profile', isLoggedIn, (req, res) =>
             LP: statsData[1].leaguePoints,
             winRate: `${statsData[1].wins} wins (${(statsData[1].wins + statsData[1].losses)} games)`
           }
-          res.render('lol/profile', { bodyClass, faveChamps, user, soloRankStats, flexRankStats });
+          
+          db.favechampion.findAll(
+          {
+            where:
+            {
+              topFive: "true"
+            }
+          })
+          .then(allTop =>
+          {
+            allTopChamps = [];
+            allTop.forEach(topChamp =>
+            {
+              champProperties.forEach(champProperty =>
+              {
+                if (topChamp.name === allChamps[champProperty].name)
+                {
+                  allTopChamps.push(allChamps[champProperty]);
+                }
+              })
+            });
+            res.render('lol/profile', { bodyClass, faveChamps, allTopChamps, user, soloRankStats, flexRankStats });
+          })
+          .catch(err =>
+          {
+              console.log("ERROR: TOP CHAMP NOT FOUND OR ADDED", err);
+          });
         })
         .catch(err =>
         {

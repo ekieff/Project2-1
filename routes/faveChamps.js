@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const fetch = require("node-fetch");
 const db = require("../models");
-// const passport = require("../config/ppConfig");
 
 
 router.get("/:id", function(req, res)
@@ -231,5 +230,6 @@ router.put("/notop/:champKey", function(req, res)
     {
     });
 });
+
 
 module.exports = router;

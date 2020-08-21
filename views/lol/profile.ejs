@@ -30,14 +30,14 @@
 
 <hr class="in-page">
 
-<h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Top 5 Favorite Champions</h2>
+<h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Top <%= allTopChamps.length %> Favorite Champions</h2>
 
 <ul class="profile-champs">
-    <% for (let i = 0; i < 5 && i < faveChamps.length; i++)
+    <% for (let i = 0; i < allTopChamps.length; i++)
     { %>
         <li class="each-profile-champ">
-            <img class="profile-faveChamps-splash" src="http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/<%= faveChamps[i].id %>.png">
-            <p><%= faveChamps[i].name %></p>
+            <img class="profile-faveChamps-splash" src="http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/<%= allTopChamps[i].id %>.png">
+            <p><%= allTopChamps[i].name %></p>
         </li>
     <% } %>
     <li><a class="profile-champs-link" href="/faveChamps/<%= currentUser.dataValues.id %>">See More Favorite Champions</a></li>
