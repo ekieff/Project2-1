@@ -22,8 +22,15 @@
 {
   font-size: 2vw;
   margin-top: 0;
+  margin-bottom: 0.5vw;
+  color: black;
+}
+
+.faveChamp-stats
+{
   margin-bottom: 0;
   color: black;
+  font-size: 1.4vw;
 }
 
 .faveChamps-splash
@@ -40,5 +47,19 @@
 .faveChamp-form
 {
   width: fit-content;
-  margin: 0 1vw 0 1vw;
+  margin: 0 0.5vw;
+}
+
+.faveChamps-changeTop
+{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1vw;
+}
+
+.top-input
+{
+  text-align: center;
+  width: 12vw;
+  margin-right: 0.5vw;
 }

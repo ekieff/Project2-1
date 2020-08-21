@@ -11,18 +11,28 @@
             <img class="card-img-top faveChamps-splash" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= champ.id %>_0.jpg">
             <div class="card-body">
                 <h3 class="card-title faveChamp-name"><%= champ.name %></h3>
+                <p class="faveChamp-stats">all the stats are here</p>
+                <p class="faveChamp-stats">more the stats are here</p>
+                <p class="faveChamp-stats">some the stats are here</p>
+                <p class="faveChamp-stats">too many the stats are here</p>
             </div>
-            <div class="card-footer faveChamps-buttons">
-                <% if (myId == siteId)
-                { %>
-                    <form class="faveChamp-form" method="GET" action="/champs/<%= champ.id %>">
-                        <input type="submit" value="Champion Page">
+            <% if (myId == siteId)
+            { %>
+                <div class="card-footer">
+                    <form class="faveChamps-changeTop" method="POST" action="/faveChamps/<%= champ.key %>/?_method=PUT">
+                        <input class="top-input" type="number" name="topNumber" value="" placeholder="insert rank here" max="5" min="1">
+                        <input type="submit" value="Add to Top 5">
                     </form>
-                    <form class="faveChamp-form" method="POST" action="/faveChamps/<%= champ.key %>/?_method=DELETE">
-                        <input type="submit" value="REMOVE">
-                    </form>
-                <% } %>
-            </div>
+                    <div class="faveChamps-buttons">
+                        <form class="faveChamp-form" method="GET" action="/champs/<%= champ.id %>">
+                            <input type="submit" value="Champion Page">
+                        </form>
+                        <form class="faveChamp-form" method="POST" action="/faveChamps/<%= champ.key %>/?_method=DELETE">
+                            <input type="submit" value="REMOVE">
+                        </form>
+                    </div>
+                </div>
+            <% } %>
         </div>
     </div>
     <% }) %>
