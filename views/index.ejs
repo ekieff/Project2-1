@@ -3,7 +3,6 @@
 <hr class="in-title">
 
 <!-- <h2 class="home-highlights">Gameplay Highlights</h2> -->
-
 <div id="carouselExampleInterval" class="carousel slide highlights" data-ride="carousel" data-pause="false">
     <div class="carousel-inner">
         <div class="carousel-item active" data-interval="3000">
@@ -24,7 +23,6 @@
 <hr class="in-title">
 
 <h2 class="home-champions">Champions</h2>
-
 <div class="home-champs-splash">
     <% for (let j = 1; j <= 5; j++)
     { %>
@@ -61,7 +59,6 @@
         </div>
     <% } %>
 </div>
-
 <a class="home-champs" href="/champs">See All Champions</a>
 
 <hr class="in-title">
@@ -71,7 +68,6 @@
 <hr class="in-title">
 
 <h2 class="home-splashes">Splash Art</h2>
-
 <div class="splashes">
 <% for (let j = 1; j <= 8; j++)
 { %>
@@ -79,7 +75,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active" data-interval="<%= Math.random()*5000 + 4000 %>">
                 <img src="<%= goodImageData[(Math.floor(goodImageData.length / 8) * (j - 1))].url %>" class="d-block w-100 splash-img" alt="...">
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption d-none d-md-block splash-author">
                     <p><%= goodImageData[(Math.floor(goodImageData.length / 8) * j - 1)].author %></p>
                 </div>
             </div>
@@ -87,8 +83,8 @@
             { %>
                 <div class="carousel-item" data-interval="<%= Math.random()*5000 + 4000 %>">
                     <img src="<%= goodImageData[i].url %>" class="d-block w-100 splash-img" alt="...">
-                    <div class="carousel-caption d-none d-md-block">
-                        <p><%= goodImageData[i].author %></p>
+                    <div class="carousel-caption d-none d-md-block splash-author">
+                        <p class="splash-author-text"><%= goodImageData[i].author %></p>
                     </div>
                 </div>
             <% } %>

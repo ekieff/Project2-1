@@ -23,146 +23,153 @@ router.get("/:id", function(req, res)
     .then(user =>
     {
         let ourPlayers = user.faveplayers;
-        let soloStats = [];
-        let flexStats = [];
-        
-        for (let i = 0; i <= ourPlayers.length; i++)
+        let stats = [];
+
+        async function getPlayerStats(player)
         {
-            //console.log(player.summonerId);
+            let response = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${player.summonerId}?api_key=${API_KEY}`);
+            let statsData = await response.json();
+            console.log(statsData);
 
-            if (i = ourPlayers.length)
+            if (!(statsData.length >= 1))
             {
-                console.log("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET");
-                console.log(soloStats, flexStats)
-                console.log("YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEET");
-                res.render('faves/favePlayers', { bodyClass, soloStats, flexStats, myId, siteId, user, ourPlayers });
-            }
-
-            fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${ourPlayers[i].summonerId}?api_key=${API_KEY}`)
-            .then(statsResponse =>
-            {
-                return statsResponse.json();
-            })
-            .then(statsData =>
-            {
-                console.log("WE ARE IN BOISSSSSSSSSSSSS");
-                //console.log(statsData);
-                if (!(statsData.length >= 1))
+                const soloRankStats = 
                 {
-                    const soloRankStats = 
-                    {
-                        username: ourPlayers[i].username,
-                        rank: "NO SOLO RANKED GAMES DATA",
-                        LP: 0,
-                        winRate: "N/A"
-                    };
+                    username: player.username,
+                    rank: "NO SOLO RANKED GAMES",
+                    LP: 0,
+                    winRate: "N/A"
+                };
 
-                    const flexRankStats = 
-                    {
-                        username: ourPlayers[i].username,
-                        rank: "NO FLEX RANKED GAMES DATA",
-                        LP: 0,
-                        winRate: "N/A"
-                    };
-                    
-                    soloStats.push(soloRankStats);
-                    flexStats.push(flexRankStats);
-
-                    //console.log(soloStats, flexStats);
+                const flexRankStats = 
+                {
+                    username: player.username,
+                    rank: "NO FLEX RANKED GAMES",
+                    LP: 0,
+                    winRate: "N/A"
+                };
+                
+                const allStats =
+                {
+                    solo: soloRankStats,
+                    flex: flexRankStats
                 }
-                else if (statsData.length = 1)
+
+                return allStats;
+            }
+            else if (statsData.length === 2 &&
+            ((statsData[0].queueType === "RANKED_SOLO_5x5" && statsData[1].queueType === "RANKED_FLEX_SR") || 
+            (statsData[1].queueType === "RANKED_SOLO_5x5" && statsData[0].queueType === "RANKED_FLEX_SR")))
+            {
+                let soloIndex;
+                let flexIndex;
+
+                if (statsData[0].queueType === "RANKED_SOLO_5x5")
                 {
-                    if (statsData[0].queueType === "RANKED_SOLO_5x5")
-                    {
-                        const soloRankStats =
-                        {
-                            username: statsData[0].summonerName,
-                            rank: `${statsData[0].tier} ${statsData[0].rank}`,
-                            LP: statsData[0].leaguePoints,
-                            winRate: `${statsData[0].wins} wins (${(statsData[0].wins + statsData[0].losses)} games)`
-                        };
-
-                        const flexRankStats = 
-                        {
-                            username: statsData[0].summonerName,
-                            rank: "NO FLEX RANKED GAMES DATA",
-                            LP: 0,
-                            winRate: "N/A"
-                        };
-
-                        soloStats.push(soloRankStats);
-                        flexStats.push(flexRankStats);
-                        
-                        //console.log(soloStats, flexStats);
-                    }
-                    else
-                    {
-                        const flexRankStats =
-                        {
-                            username: statsData[0].summonerName,
-                            rank: `${statsData[0].tier} ${statsData[0].rank}`,
-                            LP: statsData[0].leaguePoints,
-                            winRate: `${statsData[0].wins} wins (${(statsData[0].wins + statsData[0].losses)} games)`
-                        };
-
-                        const soloRankStats = 
-                        {
-                            username: statsData[0].summonerName,
-                            rank: "NO SOLO RANKED GAMES DATA",
-                            LP: 0,
-                            winRate: "N/A"
-                        }
-
-                        soloStats.push(soloRankStats);
-                        flexStats.push(flexRankStats);
-
-                        //console.log(soloStats, flexStats);
-                    }
+                    soloIndex = 0;
+                    flexIndex = 1;
+                    
                 }
                 else
                 {
-                    let soloIndex;
-                    let flexIndex;
-            
-                    for (let i = 0; i < statsData.length; i++)
-                    {
-                        if (statsData[i].queueType === "RANKED_SOLO_5x5")
-                        {
-                            soloIndex = i;
-                        }
-                        else
-                        {
-                            flexIndex = i;
-                        }
-                    }
-            
-                    const soloRankStats =
-                    {
-                        username: ourPlayers[i].username,
-                        rank: `${statsData[soloIndex].tier} ${statsData[soloIndex].rank}`,
-                        LP: statsData[soloIndex].leaguePoints,
-                        winRate: `${statsData[soloIndex].wins} wins (${(statsData[soloIndex].wins + statsData[soloIndex].losses)} games)`
-                    };
-            
-                    const flexRankStats =
-                    {
-                        username: ourPlayers[i].username,
-                        rank: `${statsData[flexIndex].tier} ${statsData[flexIndex].rank}`,
-                        LP: statsData[flexIndex].leaguePoints,
-                        winRate: `${statsData[flexIndex].wins} wins (${(statsData[flexIndex].wins + statsData[flexIndex].losses)} games)`
-                    };
-
-                    soloStats.push(soloRankStats);
-                    flexStats.push(flexRankStats);
+                    soloIndex = 1;
+                    flexIndex = 0;
                 }
-                console.log(soloStats, flexStats);
-            })
-            .catch(err =>
-            {
-                console.log("ERROR: FETCHING RANK STATS", err);
-            });
+                
 
+                const soloRankStats =
+                {
+                    username: statsData[soloIndex].summonerName,
+                    rank: `${statsData[soloIndex].tier} ${statsData[soloIndex].rank}`,
+                    LP: statsData[soloIndex].leaguePoints,
+                    winRate: `${statsData[soloIndex].wins} wins (${(statsData[soloIndex].wins + statsData[soloIndex].losses)} games)`
+                };
+
+                const flexRankStats =
+                {
+                    username: statsData[soloIndex].summonerName,
+                    rank: `${statsData[flexIndex].tier} ${statsData[flexIndex].rank}`,
+                    LP: statsData[flexIndex].leaguePoints,
+                    winRate: `${statsData[flexIndex].wins} wins (${(statsData[flexIndex].wins + statsData[flexIndex].losses)} games)`
+                };
+
+                const allStats =
+                {
+                    solo: soloRankStats,
+                    flex: flexRankStats
+                }
+
+                return allStats;
+            }
+            else if (statsData[0].queueType === "RANKED_SOLO_5x5")
+            {
+                const soloRankStats =
+                {
+                    username: statsData[0].summonerName,
+                    rank: `${statsData[0].tier} ${statsData[0].rank}`,
+                    LP: statsData[0].leaguePoints,
+                    winRate: `${statsData[0].wins} wins (${(statsData[0].wins + statsData[0].losses)} games)`
+                };
+
+                const flexRankStats = 
+                {
+                    username: statsData[0].summonerName,
+                    rank: "NO FLEX RANKED GAMES",
+                    LP: 0,
+                    winRate: "N/A"
+                };
+
+                const allStats =
+                {
+                    solo: soloRankStats,
+                    flex: flexRankStats
+                }
+
+                return allStats;
+            }
+            else
+            {
+                const flexRankStats =
+                {
+                    username: statsData[0].summonerName,
+                    rank: `${statsData[0].tier} ${statsData[0].rank}`,
+                    LP: statsData[0].leaguePoints,
+                    winRate: `${statsData[0].wins} wins (${(statsData[0].wins + statsData[0].losses)} games)`
+                };
+
+                const soloRankStats = 
+                {
+                    username: statsData[0].summonerName,
+                    rank: "NO SOLO RANKED GAMES",
+                    LP: 0,
+                    winRate: "N/A"
+                }
+
+                const allStats =
+                {
+                    solo: soloRankStats,
+                    flex: flexRankStats
+                }
+
+                return allStats;
+            }
         }
+
+        async function addToStats(ourPlayers)
+        { 
+            for (const player of ourPlayers)
+            {
+                await getPlayerStats(player)
+                .then(playerResults =>
+                {
+                    stats.push(playerResults);
+                })
+            }
+            console.log(stats);
+            res.render('faves/favePlayers', { bodyClass, stats, myId, siteId, user, ourPlayers });
+        }
+
+        addToStats(ourPlayers);
     })
     .catch(err =>
     {

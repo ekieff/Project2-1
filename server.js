@@ -73,7 +73,9 @@ app.get('/', (req, res) => {
 
     gameplay.forEach(arrayElement =>
     {
-      if (arrayElement.data.is_video && !arrayElement.data.over_18 && arrayElement.data.media.reddit_video.duration < 45 && arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/8vgc2ildd5i51/DASH_480.mp4?source=fallback")
+      if (arrayElement.data.is_video && !arrayElement.data.over_18 && arrayElement.data.media.reddit_video.duration < 45 && 
+        arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/8vgc2ildd5i51/DASH_480.mp4?source=fallback" && 
+        arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/vdigjslltdi51/DASH_1080.mp4?source=fallback")
       {
         gameplayVideos.push(arrayElement.data.media.reddit_video);
         gameplayPost.push(arrayElement.data);
@@ -93,7 +95,7 @@ app.get('/', (req, res) => {
       let images = imageData.data.children;
       images.forEach(image =>
       {
-        if (image.data.url.substr(image.data.url.length - 3, image.data.url.length) === "png" || image.data.url.substr(image.data.url.length - 3, image.data.url.length) === "jpg")
+        if (!image.data.over_18 && (image.data.url.substr(image.data.url.length - 3, image.data.url.length) === "png" || image.data.url.substr(image.data.url.length - 3, image.data.url.length) === "jpg"))
         {
           goodImageData.push(image.data);
         }

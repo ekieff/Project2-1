@@ -77,7 +77,7 @@
 .home-splash-img
 {
   width: 17vw;
-  border: 1vw white solid;
+  border: 0.6vw white solid;
 }
 /* STYLING FOR HOME CHAMPION IMAGES */
 
@@ -120,33 +120,44 @@
 
 .splash-img
 {
-  height: 25vw;
+  height: 23vw;
   object-fit: cover;
+  border: 0.5vw white solid;
 }
 
 .splash-art-1,.splash-art-2
 {
-  /* position: absolute;
-  margin-left: 50vw; */
   flex: 25%;
-  padding: 0.5vw;
+  padding: 1.7vw;
 }
 
 .splash-art-3,.splash-art-4
 {
   flex: 25%;
-  padding: 0.5vw;
+  padding: 1.7vw;
 }
 
 .splash-art-5,.splash-art-6
 {
   flex: 25%;
-  padding: 0.5vw;
+  padding: 1.7vw;
 }
 
 .splash-art-7,.splash-art-8
 {
   flex: 25%;
-  padding: 0.5vw;
+  padding: 1.7vw;
+}
+
+.splash-author
+{
+  padding-bottom: 0;
+}
+
+.splash-author-text
+{
+  text-shadow: 0 0 5vw black;
+  font-size: 1.5vw;
+  margin-bottom: 0;
 }
 /* STYLING FOR HOME SPLASH ART */

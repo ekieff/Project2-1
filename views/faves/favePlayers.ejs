@@ -9,25 +9,24 @@
         <div class="col mb-4">
             <div class="card each-faveChamp-card">
                 <div class="card-body">
-                    <h3 class="card-title faveChamp-name"><%= ourPlayers[i].username %></h3>
                     
                     <% let playerIndex;
-                    for (let j = 0; j < soloStats.length; j++)
+                    for (let j = 0; j < stats.length; j++)
                     {
-                        if (soloStats[j].username.toLowerCase() === ourPlayers[i].username.toLowerCase())
+                        if (stats[j].solo.username.toLowerCase() === ourPlayers[i].username.toLowerCase())
                         {
                             playerIndex = j;
                         }
                     } %>
-                    
+                    <h3 class="card-title faveChamp-name"><%= stats[playerIndex].solo.username %></h3>
                     <h5>Solo Stats</h5>
-                    <p class="faveChamp-stats"><%= soloStats[0].rank %></p>
-                    <p class="faveChamp-stats"><%= soloStats[0].LP %></p>
-                    <p class="faveChamp-stats"><%= soloStats[0].winRate %></p>
+                    <p class="faveChamp-stats">Rank: <%= stats[playerIndex].solo.rank %></p>
+                    <p class="faveChamp-stats"><%= stats[playerIndex].solo.LP %> LP</p>
+                    <p class="faveChamp-stats">Wins: <%= stats[playerIndex].solo.winRate %></p>
                     <h5>Flex Stats</h5>
-                    <p class="faveChamp-stats"><%= flexStats[0].rank %></p>
-                    <p class="faveChamp-stats"><%= flexStats[0].LP %></p>
-                    <p class="faveChamp-stats"><%= flexStats[0].winRate %></p>
+                    <p class="faveChamp-stats">Rank: <%= stats[playerIndex].flex.rank %></p>
+                    <p class="faveChamp-stats"><%= stats[playerIndex].flex.LP %> LP</p>
+                    <p class="faveChamp-stats">Wins: <%= stats[playerIndex].flex.winRate %></p>
                     
                 </div>
 
