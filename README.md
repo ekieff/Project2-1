@@ -109,7 +109,7 @@ There is a lot of code I wrote, so these are examples of the types of code I had
 ### CRUD
 
 #### GET ROUTE
-``` javascript
+```javascript
 router.get("/:id", function(req, res)
 {
     let bodyClass = "ALL-CHAMPIONS";
@@ -167,7 +167,7 @@ router.get("/:id", function(req, res)
     - fetch call to league API for champion data
 
 #### POST ROUTE
-``` javascript
+```javascript
 router.post("/:champKey", function(req, res)
 {
     db.user.findOne(
@@ -246,7 +246,7 @@ router.post("/:champKey", function(req, res)
     - redirect to the faveChamps.ejs page for the user
 
 #### DELETE ROUTE
-``` javascript
+```javascript
 router.delete("/:champKey", function(req, res)
 {   
     db.favechampion.findOne(
@@ -305,7 +305,7 @@ router.delete("/:champKey", function(req, res)
     - redirect to the faveChamps.ejs page for the user
 
 #### PUT ROUTE
-``` javascript
+```javascript
 router.put("/top/:champKey", function(req, res)
 {
     db.favechampion.update(
@@ -333,3 +333,381 @@ router.put("/top/:champKey", function(req, res)
     - update the value topFive of the favechampion
     - redirect to the faveChamps.ejs page for the user
 
+### FETCH and WEB SCRAPING
+
+#### FETCH
+```javascript
+fetch("https://www.reddit.com/r/leagueoflegends.json?limit=70")
+.then(response =>
+{
+    //return data as json data
+    return response.json();
+})
+.then(gameplayData =>
+{
+    //console.log(gameplayData);
+    let gameplay = gameplayData.data.children;
+    let gameplayVideos = [];
+    let gameplayPost = [];
+
+    gameplay.forEach(arrayElement =>
+    {
+        if (arrayElement.data.is_video && !arrayElement.data.over_18 && arrayElement.data.media.reddit_video.duration < 45 && 
+        arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/8vgc2ildd5i51/DASH_480.mp4?source=fallback" && 
+        arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/vdigjslltdi51/DASH_1080.mp4?source=fallback" &&
+        arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/2snzscnfqsi51/DASH_1080.mp4?source=fallback")
+        {
+        gameplayVideos.push(arrayElement.data.media.reddit_video);
+        gameplayPost.push(arrayElement.data);
+        }
+    });
+})
+.catch(err =>
+{
+    console.log("ERROR: REDDIT API ERROR", err);
+});
+```
+- PURPOSE: API call to reddit to get videos of league of legends gameplay
+    - fetch call to endpoint URL
+    - takes the data and checks if it is...
+        - a video post
+        - not a NSFW post
+        - video post is less than 45 seconds long
+        - it is not any of the videos that I have found to be annoying or irrelevant
+    - pushes the data into arrays for later use
+
+```javascript
+fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${account.summonerId}?api_key=${API_KEY}`)
+.then(statsResponse =>
+{
+    return statsResponse.json();
+})
+.then(statsData =>
+{
+    //some other code here
+    res.render('lol/profile', { /* bodyClass, faveChamps, allTopChamps, user, */ statsData /* , allPlayers, allFaveModes, modeIndex */ });
+    //some other code here
+})
+.catch(err =>
+{
+    console.log("ERROR: FETCHING RANK STATS", err);
+});
+```
+- PURPOSE: API call to league of legends (endpoint type: API key required) to get rank data of a summoner from the summoner key and with the use of an API key
+    - fetch call to the endpoint URL with a parameter and an API key
+    - takes data and outputs it to the rendering page for later use
+
+```javascript
+fetch("http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json")
+.then(response =>
+{
+    return response.json();
+})
+.then(data =>
+{
+    let faveChamps = [];
+    let allChamps = data.data;
+    let champProperties = Object.getOwnPropertyNames(allChamps);
+
+    user.favechampions.forEach(champ =>
+    {
+        champProperties.forEach(champProperty =>
+        {
+            if (champ.name === allChamps[champProperty].name && champ.user === res.locals.currentUser.dataValues.id)
+            {
+                faveChamps.push(allChamps[champProperty]);
+            }
+        })
+    });
+
+    //some other code here
+
+.catch(err =>
+{
+    console.log("ERROR: FETCHING CHAMPS FOR FAVE CHAMPS FROM API FOR PROFILE", err);
+});
+```
+- PURPOSE: API call to league of legends (endpoint type: no API key required) to get champion data
+    - fetch call to the endpoint URL
+    - checks data to see if it the champ in the data matches the champ that needs to be used in the database
+    - pushes the data into an array for later use
+
+#### WEB SCRAPING
+``` javascript
+const request = require("request");
+const cheerio = require("cheerio");
+const URL = "https://na.leagueoflegends.com/en-us/champions/";
+
+//some other code here
+
+let allImages = [];
+request(URL, (error, response, body) =>
+{
+    let $ = cheerio.load(body);
+    let images = $(".style__ImageContainer-sc-12h96bu-1");
+    images.each((index, element) =>
+    {
+        allImages.push($(element).find("img").attr("src"));
+    })
+    res.render('index', { /* alerts: res.locals.alerts, bodyClass, gameplayVideos, gameplayPost, goodImageData, */ allImages });  
+});
+```
+- PURPOSE: scrape data from the league of legends site to get some images that are not stored in their APIs
+    - make a request to the site
+    - load the elements of the body
+    - find elements of a certain class
+    - take those elements and the src attribute and push it into an array
+    - use array for rendering the index.ejs page later
+
+### EJS
+
+#### EXAMPLE PAGE
+
+```javascript
+<h1 class="champ-home-title">League of Legends Champions</h1>
+
+<hr class="in-title">
+
+<div class="all-champs row row-cols-1 row-cols-md-5">
+
+<% allNames.forEach(name =>
+{ %>
+    <div class="card bg-dark text-white all-champs-cards">
+        <a class="card-link" href="/champs/<%= allChamps[name].id %>">
+            <img class="champ-icon" src="<%= champImages[allNames.indexOf(name)] %>" class="card-img">
+            <div class="card-img-overlay">
+                <h5 class="card-title"><%= allChamps[name].name %></h5>
+            </div>
+        </a>
+    </div>  
+<% }) %>
+</div>
+```
+- PURPOSE: display all the champions of league of legends with an image of the champion
+    - cycle through array of champ data from fetch call done before
+    - puts data into a bootstrap card
+
+#### BOOTSTRAP
+
+```javascript
+<div class="faveChamp-cards row row-cols-1 row-cols-md-3">
+    <% faveChamps.forEach(champ =>
+    { %>
+        <div class="col mb-4">
+            <div class="card each-faveChamp-card">
+                <img class="card-img-top faveChamps-splash" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= champ.id %>_0.jpg">
+                <div class="card-body">
+                    <h3 class="card-title faveChamp-name"><%= champ.name %></h3>
+                    <p class="faveChamp-stats"><%= //all the stats are here %></p>
+                    <p class="faveChamp-stats"><%= //more the stats are here %></p>
+                </div>
+                <% if (myId == siteId)
+                { %>
+                    <div class="card-footer">
+                        <div class="faveChamps-buttons">
+                            <form class="faveChamp-form" method="POST" action="/faveChamps/top/<%= champ.key %>/?_method=PUT">
+                                <input type="submit" value="Add to Top Champs">
+                            </form>
+                            <form class="faveChamp-form" method="POST" action="/faveChamps/notop/<%= champ.key %>/?_method=PUT">
+                                <input type="submit" value="Remove from Top Champs">
+                            </form>
+                        </div>
+                        <div class="faveChamps-buttons">
+                            <form class="faveChamp-form" method="GET" action="/champs/<%= champ.id %>">
+                                <input type="submit" value="Champion Page">
+                            </form>
+                            <form class="faveChamp-form" method="POST" action="/faveChamps/<%= champ.key %>/?_method=DELETE">
+                                <input type="submit" value="DELETE">
+                            </form>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    <% }) %>
+</div>
+```
+- PURPOSE: display all the favorite champions on the favorites page in bootstrap cards along with buttons to add/remove from top faves, see the onechamp page, or remove the fave entirely
+    - use the bootstrap format for the cards
+    - cards of favechamps with splash image using league of legends API endpoint (no API key necessary) on top
+    - body of card with the champion name
+    - if user is verified to be you and page is verified to be yours...
+        - allow CRUD with the database
+            - add to top faves
+            - remove from top faves
+            - see oneChamp page of champion
+            - delete the champ from the faveChamp database
+
+```javascript
+<div id="carouselExampleInterval" class="carousel slide highlights" data-ride="carousel" data-pause="false">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-interval="3000">
+            <img src="https://i.ytimg.com/vi/QhOtNuRngqw/maxresdefault.jpg" class="d-block w-100">
+        </div>
+        <% for (let i = 0; i < gameplayVideos.length; i++)
+        { %>
+            <div class="carousel-item" data-interval="<%= gameplayVideos[i].duration * 1000 + 300 %>">
+                <video class="d-block w-100" autoplay muted loop>
+                    <source src="<%= gameplayVideos[i].fallback_url %>" type="video/mp4">
+                YOUR BROWSER DOES NOT SUPPORT THIS VIDEO TYPE
+                </video>
+            </div>
+        <% } %>
+    </div>
+</div>
+```
+- PURPOSE: display a bunch of league of legends gameplay videos in a bootstrap carousel that goes to the next video automatically after the video finishes playing
+    - use the bootstrap format for the carousel
+    - first element of carousel is an image to display the highlight splash image
+    - other elements are videos obtained from fetch call in reddit API
+    - duration of the video being played is obtained from the reddit API data
+    - video is set to autoplay, loop, and mute
+
+### MODELS and MIGRATIONS
+
+#### MODELS
+
+```javascript
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class favechampion extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+      models.favechampion.belongsToMany(models.user, {through: "users_favechampions", onDelete: "CASCADE"});
+    }
+  };
+  favechampion.init({
+    name: DataTypes.STRING,
+    champKey: DataTypes.STRING,
+    topFive: DataTypes.STRING,
+    user: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'favechampion',
+  });
+  return favechampion;
+};
+```
+- PURPOSE: used to take data and store it in the data table it is named after
+
+#### MIGRATIONS
+
+```javascript
+'use strict';
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('favechampions', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      name: {
+        type: Sequelize.STRING
+      },
+      champKey: {
+        type: Sequelize.STRING
+      },
+      topFive: {
+        type: Sequelize.STRING
+      },
+      user: {
+        type: Sequelize.INTEGER
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
+  },
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('favechampions');
+  }
+};
+```
+- PURPOSE: used to take data and migrate it into the data table it is named after
+
+### CSS
+
+```CSS
+/* STYLING FOR HOME SPLASH ART */
+.home-splashes
+{
+  margin: 4vw;
+  margin-right: 4.2vw;
+  margin-bottom: 2vw;
+  font-size: 2.5vw;
+  display: flex;
+  justify-content: center;
+}
+
+.splashes
+{
+  margin-left: 5vw;
+  margin-right: 4vw;
+  margin-bottom: 4vw;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+.splash-img
+{
+  height: 23vw;
+  object-fit: cover;
+  border: 0.5vw white solid;
+}
+
+.splash-art-1,.splash-art-2
+{
+  flex: 25%;
+  padding: 1.7vw;
+}
+
+.splash-art-3,.splash-art-4
+{
+  flex: 25%;
+  padding: 1.7vw;
+}
+
+.splash-art-5,.splash-art-6
+{
+  flex: 25%;
+  padding: 1.7vw;
+}
+
+.splash-art-7,.splash-art-8
+{
+  flex: 25%;
+  padding: 1.7vw;
+}
+
+.splash-author
+{
+  padding-bottom: 0;
+}
+
+.splash-author-text
+{
+  text-shadow: 0 0 5vw black;
+  font-size: 1.5vw;
+  margin-bottom: 0;
+}
+/* STYLING FOR HOME SPLASH ART */
+```
+- PURPOSE: some of the styling used for the splash art on the home page
+
+## 
