@@ -11,20 +11,18 @@
             <img class="card-img-top faveChamps-splash" src="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/<%= champ.id %>_0.jpg">
             <div class="card-body">
                 <h3 class="card-title faveChamp-name"><%= champ.name %></h3>
-                <p class="faveChamp-stats">all the stats are here</p>
-                <p class="faveChamp-stats">more the stats are here</p>
-                <p class="faveChamp-stats">some the stats are here</p>
-                <p class="faveChamp-stats">too many the stats are here</p>
+                <p class="faveChamp-stats"><%= //all the stats are here %></p>
+                <p class="faveChamp-stats"><%= //more the stats are here %></p>
             </div>
             <% if (myId == siteId)
             { %>
                 <div class="card-footer">
                     <div class="faveChamps-buttons">
                         <form class="faveChamp-form" method="POST" action="/faveChamps/top/<%= champ.key %>/?_method=PUT">
-                            <input type="submit" value="Add to Top 5">
+                            <input type="submit" value="Add to Top Champs">
                         </form>
                         <form class="faveChamp-form" method="POST" action="/faveChamps/notop/<%= champ.key %>/?_method=PUT">
-                            <input type="submit" value="Remove from Top 5">
+                            <input type="submit" value="Remove from Top Champs">
                         </form>
                     </div>
                     <div class="faveChamps-buttons">
