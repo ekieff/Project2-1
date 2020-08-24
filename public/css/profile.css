@@ -141,3 +141,47 @@ h5
   color: rgb(111, 234, 250);
 }
 /* STYLING FOR FAVECHAMPS ON PROFILE */
+
+/* STYLING FOR FAVEMODES ON PROFILE */
+.profile-modes
+{
+  font-size: 1.7vw;
+  margin-left: 7vw;
+  margin-right: 7vw;
+  list-style: none;
+  padding: 0;
+}
+
+.each-profile-mode
+{
+  display: inline-block;
+  margin-top: 1vw;
+  margin-right: 1vw;
+}
+
+.each-profile-mode>p
+{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+.profile-favemodes-splash
+{
+  width: 19.9vw;
+  height: 10vw;
+  object-fit: cover;
+  padding: 0 2vw 0 2vw;
+}
+
+.profile-modes-link
+{
+  font-size: 1.3vw;
+  color: rgb(111, 234, 250);
+}
+
+.profile-modes-link:hover
+{
+  color: rgb(111, 234, 250);
+}
+/* STYLING FOR FAVEMODES ON PROFILE */

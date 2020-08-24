@@ -138,7 +138,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
     {
       id: res.locals.currentUser.dataValues.id
     },
-    include: [db.favechampion, db.faveplayer]
+    include: [db.favechampion, db.faveplayer, db.favemode]
   })
   .then(user =>
   {
@@ -165,6 +165,19 @@ app.get('/profile', isLoggedIn, (req, res) =>
         })
       });
 
+      let gameModes = ["Ascension", "Black Market Brawlers", "Dark Star: Singularity", "Definitely Not Dominion", 
+      "Doom Bots", "Hexakill", "Hunt of the Blood Moon", "Invasion", "Legend of the Poro King", 
+      "Nemesis Draft", "Nexus Blitz", "Nexus Siege", "Odyssey: Extraction", "One for All", "OVERCHARGE", 
+      "Snowdown Showdown", "Ultra Rapid Fire"];
+      let modeIndex = [];
+
+      let allFaveModes = user.favemodes;
+
+      user.favemodes.forEach(faveMode =>
+      {
+          modeIndex.push(gameModes.indexOf(faveMode.name));
+      });
+      console.log(modeIndex);
       let allPlayers = user.faveplayers;
 
       fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${user.name}?api_key=${API_KEY}`)
@@ -209,7 +222,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
                 }
               })
             });
-            res.render('lol/profile', { bodyClass, faveChamps, allTopChamps, user, statsData, allPlayers });
+            res.render('lol/profile', { bodyClass, faveChamps, allTopChamps, user, statsData, allPlayers, allFaveModes, modeIndex });
           })
           .catch(err =>
           {

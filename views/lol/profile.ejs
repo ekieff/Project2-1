@@ -80,4 +80,14 @@
 
 <hr class="in-page">
 
-<h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Favorite Game Modes</h2>
+<h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Favorite Special Game Modes</h2>
+<ul class="profile-modes">
+    <% for (let i = 0; i < allFaveModes.length; i++)
+    { %>
+        <li class="each-profile-mode">
+            <img class="profile-favemodes-splash" src="./../game-modes/mode-<%= modeIndex[i] + 1 %>.png">
+            <p><%= allFaveModes[i].name %></p>
+        </li>
+    <% } %>
+    <li><a class="profile-modes-link" href="/faveModes/<%= currentUser.dataValues.id %>">Delete Favorite Modes</a></li>
+</ul>
