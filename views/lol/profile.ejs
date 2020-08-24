@@ -15,25 +15,64 @@
     flexIndex = i;
   }
 } %> 
-<% let soloGames = statsData[soloIndex].wins + statsData[soloIndex].losses %> 
-<% let flexGames = statsData[flexIndex].wins + statsData[flexIndex].losses %> 
+
+<% let wins;
+let loses;
+let winf;
+let lossef;
+let ranks;
+let rankf;
+let LPs;
+let LPf; %> 
+<% if (statsData[soloIndex] === undefined || statsData[soloIndex] === null)
+{
+    wins = 0;
+    losses = 0;
+    ranks = "NO SOLO RANKED GAMES";
+    LPs = 0;
+}
+else
+{
+    wins = statsData[soloIndex].wins;
+    losses = statsData[soloIndex].losses;
+    ranks = statsData[soloIndex].tier + " " + statsData[soloIndex].rank
+    LPs = statsData[soloIndex].leaguePoints;
+} %> 
+
+<% if (statsData[flexIndex] === undefined || statsData[flexIndex] === null)
+{
+    winf = 0;
+    lossef = 0;
+    rankf = "NO FLEX RANKED GAMES";
+    LPf = 0;
+}
+else
+{
+    winf = statsData[flexIndex].wins;
+    lossef = statsData[flexIndex].losses;
+    rankf = statsData[flexIndex].tier + " " + statsData[flexIndex].rank
+    statsData[flexIndex].leaguePoints;
+} %> 
+
+<% let soloGames = wins + losses %> 
+<% let flexGames = winf + lossef %> 
 
 <h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Stats</h2>
 <div class="profile-stats">
     <div class="solo-stats">
         <h3 class="profile-ranked-title">Ranked Solo Queue</h3>
         <ul class="stats-list">
-            <li><%= statsData[soloIndex].tier + " " + statsData[soloIndex].rank %></li>
-            <li><%= statsData[soloIndex].leaguePoints %> LP</li>
-            <li><%= statsData[soloIndex].wins + " wins (" + soloGames %> games)</li>
+            <li><%= ranks %></li>
+            <li><%= LPs %> LP</li>
+            <li><%= wins + " wins (" + soloGames %> games)</li>
         </ul>
     </div>
     <div class="flex-stats">
         <h3 class="profile-ranked-title">Ranked Flex Queue</h3>
         <ul class="stats-list">
-            <li><%= statsData[flexIndex].tier + " " + statsData[flexIndex].rank %></li>
-            <li><%= statsData[flexIndex].leaguePoints %> LP</li>
-            <li><%= statsData[flexIndex].wins + " wins (" + flexGames %> games)</li>
+            <li><%= rankf %></li>
+            <li><%= LPf %> LP</li>
+            <li><%= winf + " wins (" + flexGames %> games)</li>
         </ul>
     </div>
 </div>

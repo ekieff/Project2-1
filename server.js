@@ -158,7 +158,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
       {
         champProperties.forEach(champProperty =>
         {
-          if (champ.name === allChamps[champProperty].name)
+          if (champ.name === allChamps[champProperty].name && champ.user === res.locals.currentUser.dataValues.id)
           {
             faveChamps.push(allChamps[champProperty]);
           }
@@ -216,7 +216,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
             {
               champProperties.forEach(champProperty =>
               {
-                if (topChamp.name === allChamps[champProperty].name)
+                if (topChamp.name === allChamps[champProperty].name && topChamp.user === res.locals.currentUser.dataValues.id)
                 {
                   allTopChamps.push(allChamps[champProperty]);
                 }
