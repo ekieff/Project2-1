@@ -1,4 +1,6 @@
-# Installation Instructions
+# Project 2 - League of Legends (imjchiang-lolinfo)
+
+### Installation Instructions
 1. go to GIT REPOSITORY LINK HERE
 2. fork and clone the repository
     - image of fork
