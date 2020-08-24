@@ -101,4 +101,235 @@ To display data from league of legends on specific players and allow players to 
     - button text for faves
     - game modes link text
     - general styling
-    - README.md
+    - edit README.md
+
+## Code Snippet Examples
+There is a lot of code I wrote, so these are examples of the types of code I had to write.
+
+### CRUD
+
+#### GET ROUTE
+``` javascript
+router.get("/:id", function(req, res)
+{
+    let bodyClass = "ALL-CHAMPIONS";
+    let myId = req.user.id;
+    let siteId = req.params.id;
+
+    db.user.findOne(
+    {
+        where:
+        {
+            id: req.params.id
+        },
+        include: [db.favechampion]
+    })
+    .then(user =>
+    {
+        //console.log(user);
+        fetch("http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json")
+        .then(response =>
+        {
+            return response.json();
+        })
+        .then(data =>
+        {
+            let faveChamps = [];
+            let allChamps = data.data;
+            let champProperties = Object.getOwnPropertyNames(allChamps);
+
+            user.favechampions.forEach(champ =>
+            {
+                champProperties.forEach(champProperty =>
+                {
+                    if (champ.name === allChamps[champProperty].name)
+                    {
+                        faveChamps.push(allChamps[champProperty]);
+                    }
+                })
+            })
+            res.render("faves/faveChamps", { bodyClass, faveChamps, user, myId, siteId });
+        })
+        .catch(err =>
+        {
+            console.log("ERROR: FETCHING CHAMPS FOR FAVE CHAMPS FROM API", err);
+        })
+
+    })
+    .catch(err =>
+    {
+        console.log("ERROR: USER NOT FOUND FROM ID OR FAVE CHAMP ISSUE", err);
+    });
+});
+```
+- PURPOSE: gets the favorite champions associated with the user
+    - myId and siteId used for user verification in faveChamps.ejs
+    - fetch call to league API for champion data
+
+#### POST ROUTE
+``` javascript
+router.post("/:champKey", function(req, res)
+{
+    db.user.findOne(
+    {
+        where:
+        {
+            id: req.user.id
+        }
+    })
+    .then(user => 
+    {
+        fetch("http://ddragon.leagueoflegends.com/cdn/10.16.1/data/en_US/champion.json")
+        .then(response =>
+        {
+            return response.json();
+        })
+        .then(data =>
+        {
+            let theChamp;
+            let allChamps = data.data;
+            let allNames = Object.getOwnPropertyNames(allChamps);
+
+            allNames.forEach(name =>
+            {
+                if (allChamps[name].key == req.params.champKey)
+                {
+                    theChamp = allChamps[name];
+                }
+            });
+
+            db.favechampion.findOrCreate(
+            {
+                where:
+                {
+                    name: theChamp.name,
+                    champKey: theChamp.key,
+                    user: req.user.id,
+                    topFive: "false"
+                }
+            })
+            .then(([faveChamp, created]) =>
+            {
+                console.log(created);
+                user.addFavechampion(faveChamp)
+                .then(relationship =>
+                {
+                    console.log("The relationship is: ", relationship);
+                    res.redirect(`/faveChamps/${user.id}`);
+                })
+                .catch(err =>
+                {
+                    console.log("ERROR: CHAMP TO USER RELATIONSHIP FAILED", err);
+                });
+            })
+            .catch(err =>
+            {
+                console.log("ERROR: CHAMP NOT CREATED OR FOUND IN DATABASE", err);
+            });
+        })
+        .then(err =>
+        {
+            console.log("ERROR: CHAMPION FOR FAVES NOT FETCHED PROPERLY", err);
+        });
+    })
+    .catch(err =>
+    {
+        console.log("ERROR: USER NOT FOUND", err);
+    });
+});
+```
+- PURPOSE: getting a champion based on the champion key and adding it to the favechampions table associated to the user
+    - verify user in database
+    - fetch champion data from league API
+    - access associated favechampions table
+    - find if champion has been added (if not, add it)
+    - redirect to the faveChamps.ejs page for the user
+
+#### DELETE ROUTE
+``` javascript
+router.delete("/:champKey", function(req, res)
+{   
+    db.favechampion.findOne(
+    {
+        where:
+        {
+            champKey: req.params.champKey,
+            user: req.user.id
+        }
+    })
+    .then(deleteChamp =>
+    {
+        let champId = deleteChamp.id;
+        db.users_favechampions.destroy(
+        {
+            where: 
+            {
+                favechampionId: champId,
+                userId: req.user.id
+            }
+        })
+        .then(destroyedFaveChampAssociation =>
+        {
+            db.favechampion.destroy(
+            {
+                where: 
+                {
+                    champKey: req.params.champKey,
+                    user: req.user.id
+                }
+            })
+            .then(destroyedFaveChamp =>
+            {
+                res.redirect(`/faveChamps/${req.user.id}`);
+            })
+            .catch(err =>
+            {
+                console.log("ERROR: DELETION PROCESS FOR FAVECHAMP FAILED", err);
+            })
+        })
+        .catch(err =>
+        {
+            console.log("ERROR: DELETION PROCESS FOR ASSOCIATION FAILED", err);
+        });
+    })
+    .catch(err =>
+    {
+        console.log("ERROR: CHAMPION TO DELETE NOT FOUND", err);
+    });
+});
+```
+- PURPOSE: find the favechampion from the champion key and delete the association and the favechampion itself
+    - verify the favechampion and the user
+    - destroy the association based on favechampion and user
+    - destroy the favechampion based on user
+    - redirect to the faveChamps.ejs page for the user
+
+#### PUT ROUTE
+``` javascript
+router.put("/top/:champKey", function(req, res)
+{
+    db.favechampion.update(
+    {
+        topFive: "true"
+    },
+    {
+        where:
+        {
+            champKey: req.params.champKey,
+            user: req.user.id
+        }
+    })
+    .then((updatedChamp) =>
+    {
+        res.redirect(`/faveChamps/${req.user.id}`);
+    })
+    .catch(() =>
+    {
+    });
+});
+```
+- PURPOSE: edit the topFive value of the already created favechampion for display on profile
+    - verify the favechampion and the user
+    - update the value topFive of the favechampion
+    - redirect to the faveChamps.ejs page for the user
+
