@@ -2,22 +2,38 @@
 
 <hr class="in-title">
 
+<% let soloIndex; %> 
+<% let flexIndex; %> 
+<% for (let i = 0; i < statsData.length; i++)
+{
+  if (statsData[i].queueType === "RANKED_SOLO_5x5")
+  {
+    soloIndex = i;
+  }
+  else
+  {
+    flexIndex = i;
+  }
+} %> 
+<% let soloGames = statsData[soloIndex].wins + statsData[soloIndex].losses %> 
+<% let FlexGames = statsData[flexIndex].wins + statsData[flexIndex].losses %> 
+
 <h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Stats</h2>
 <div class="profile-stats">
     <div class="solo-stats">
         <h3 class="profile-ranked-title">Ranked Solo Queue</h3>
         <ul class="stats-list">
-            <li><%= soloRankStats.rank %></li>
-            <li><%= soloRankStats.LP %> LP</li>
-            <li><%= soloRankStats.winRate %></li>
+            <li><%= statsData[soloIndex].tier + " " + statsData[soloIndex].rank %></li>
+            <li><%= statsData[soloIndex].leaguePoints %> LP</li>
+            <li><%= statsData[soloIndex].wins + "wins" + statsData[soloIndex].wins+statsData[soloIndex].losses %></li>
         </ul>
     </div>
     <div class="flex-stats">
         <h3 class="profile-ranked-title">Ranked Flex Queue</h3>
         <ul class="stats-list">
-            <li><%= flexRankStats.rank %></li>
-            <li><%= flexRankStats.LP %> LP</li>
-            <li><%= flexRankStats.winRate %></li>
+            <li><%= statsData[flexIndex].tier + " " + statsData[flexIndex].rank %></li>
+            <li><%= statsData[flexIndex].leaguePoints %> LP</li>
+            <li><%= statsData[flexIndex].wins + "wins" +  %></li>
         </ul>
     </div>
 </div>

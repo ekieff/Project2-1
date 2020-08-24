@@ -75,7 +75,8 @@ app.get('/', (req, res) => {
     {
       if (arrayElement.data.is_video && !arrayElement.data.over_18 && arrayElement.data.media.reddit_video.duration < 45 && 
         arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/8vgc2ildd5i51/DASH_480.mp4?source=fallback" && 
-        arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/vdigjslltdi51/DASH_1080.mp4?source=fallback")
+        arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/vdigjslltdi51/DASH_1080.mp4?source=fallback" &&
+        arrayElement.data.media.reddit_video.fallback_url !== "https://v.redd.it/2snzscnfqsi51/DASH_1080.mp4?source=fallback")
       {
         gameplayVideos.push(arrayElement.data.media.reddit_video);
         gameplayPost.push(arrayElement.data);
@@ -188,37 +189,6 @@ app.get('/profile', isLoggedIn, (req, res) =>
         })
         .then(statsData =>
         {
-          let soloIndex;
-          let flexIndex;
-
-          for (let i = 0; i < statsData.length; i++)
-          {
-            if (statsData[i].queueType === "RANKED_SOLO_5x5")
-            {
-              soloIndex = i;
-            }
-            else
-            {
-              flexIndex = i;
-            }
-          }
-
-          const soloRankStats =
-          {
-            username: statsData[soloIndex].summonerName,
-            rank: `${statsData[soloIndex].tier} ${statsData[soloIndex].rank}`,
-            LP: statsData[soloIndex].leaguePoints,
-            winRate: `${statsData[soloIndex].wins} wins (${(statsData[soloIndex].wins + statsData[soloIndex].losses)} games)`
-          };
-
-          const flexRankStats =
-          {
-            username: statsData[flexIndex].summonerName,
-            rank: `${statsData[flexIndex].tier} ${statsData[flexIndex].rank}`,
-            LP: statsData[flexIndex].leaguePoints,
-            winRate: `${statsData[flexIndex].wins} wins (${(statsData[flexIndex].wins + statsData[flexIndex].losses)} games)`
-          };
-
           db.favechampion.findAll(
           {
             where:
@@ -239,7 +209,7 @@ app.get('/profile', isLoggedIn, (req, res) =>
                 }
               })
             });
-            res.render('lol/profile', { bodyClass, faveChamps, allTopChamps, user, soloRankStats, flexRankStats, allPlayers });
+            res.render('lol/profile', { bodyClass, faveChamps, allTopChamps, user, statsData, allPlayers });
           })
           .catch(err =>
           {

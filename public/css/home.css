@@ -93,6 +93,53 @@
   display: flex;
   justify-content: center;
 }
+
+.game-modes
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5vw 0 5vw;
+}
+
+.mode-img
+{
+  height: 23vw;
+  object-fit: cover;
+  border: 0.5vw white solid;
+}
+
+.mode-art
+{
+  width: 33%;
+  padding: 1vw;
+}
+
+.mode-author
+{
+  padding-bottom: 0;
+}
+
+.mode-author-text
+{
+  text-shadow: 0 0 5vw black;
+  font-size: 1.5vw;
+  margin-bottom: 0;
+}
+
+.modes
+{
+  margin: 0 4.2vw 2vw 4vw;
+  font-size: 1.5vw;
+  display: flex;
+  justify-content: center;
+  color: rgb(255, 215, 130);
+}
+
+.modes:hover
+{
+  color: rgb(255, 215, 130);
+}
 /* STYLING FOR HOME GAME MODES */
 
 
