@@ -249,6 +249,11 @@ app.get('/profile', isLoggedIn, (req, res) =>
   {
     console.log("ERROR: FETCHING CHAMPS FOR FAVE CHAMPS FROM API", err);
   })
+
+/* <h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Favorite Matches</h2>
+<hr class="in-page"> */
+
+
 });
 
 app.use('/auth', require('./routes/auth'));
