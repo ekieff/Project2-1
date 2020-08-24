@@ -1,0 +1,35 @@
+<h1 class="mode-home-title">Game Modes</h1>
+
+<hr class="in-title">
+
+<% let gameModes = ["Ascension", "Black Market Brawlers", "Dark Star: Singularity", "Definitely Not Dominion", 
+"Doom Bots", "Hexakill", "Hunt of the Blood Moon", "Invasion", "Legend of the Poro King", 
+"Nemesis Draft", "Nexus Blitz", "Nexus Siege", "Odyssey: Extraction", "One for All", "OVERCHARGE", 
+"Snowdown Showdown", "Ultra Rapid Fire"] %>
+
+<h5 class="mode-instruct">[Click on the mode to add to favorite modes]</h5>
+
+<div class="all-modes row row-cols-1 row-cols-md-3">
+    <% for (let i = 0; i < 17; i++)
+    { %>
+        <div class="card bg-dark text-white all-mode-cards">
+            <img class="mode-icon" src="/game-modes/mode-<%= i + 1 %>.png" class="card-img">
+            <div class="card-img-overlay">
+                <h5 class="mode-title"><%= gameModes[i] %></h5>
+            </div>
+        </div> 
+    <% } %>
+</div>
+
+<div class="all-modes row row-cols-1 row-cols-md-3 mode-form">
+    <% for (let i = 0; i < 17; i++)
+    { %>
+        <div class="card bg-dark text-white all-mode-cards">
+            <form method="POST" action="/modes">
+                <input type="hidden" name="name" value="<%= gameModes[i] %>">
+                <input type="hidden" name="index" value="<%= i %>">
+                <input class="mode-icon" type="submit">
+            </form>
+        </div> 
+    <% } %>
+</div>

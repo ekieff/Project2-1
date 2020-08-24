@@ -1,0 +1,54 @@
+/* ALL CHAMPS STYLING */
+.mode-home-title
+{
+  margin-top: 4vw;
+  font-size: 3vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  display: flex;
+  justify-content: center;
+}
+
+.mode-instruct
+{
+  margin-left: 5vw;
+  margin-right: 5vw;
+  display: flex;
+  justify-content: center;
+}
+
+.all-modes
+{
+  position: absolute;
+  left: 8.5vw;
+  max-width: 90vw;
+}
+
+.all-mode-cards
+{
+  max-width: 25vw;
+  margin: 1.4vw;
+  border: 0;
+}
+
+.mode-icon
+{
+  width: 25vw;
+  height: 12vw;
+  object-fit: cover;
+}
+
+.mode-title
+{
+  font-size: 1vw;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 8vw;
+}
+
+.mode-form
+{
+  opacity: 0;
+}
+/* ALL CHAMPS STYLING */
