@@ -4,6 +4,9 @@
   margin-top: 4vw;
   font-size: 3vw;
   margin-left: 5vw;
+  margin-right: 5vw;
+  display: flex;
+  justify-content: center;
 }
 
 .all-champs
