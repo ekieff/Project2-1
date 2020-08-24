@@ -16,7 +16,7 @@
   }
 } %> 
 <% let soloGames = statsData[soloIndex].wins + statsData[soloIndex].losses %> 
-<% let FlexGames = statsData[flexIndex].wins + statsData[flexIndex].losses %> 
+<% let flexGames = statsData[flexIndex].wins + statsData[flexIndex].losses %> 
 
 <h2 class="profile-subtitle"><%= currentUser.dataValues.name %>'s Stats</h2>
 <div class="profile-stats">
@@ -25,7 +25,7 @@
         <ul class="stats-list">
             <li><%= statsData[soloIndex].tier + " " + statsData[soloIndex].rank %></li>
             <li><%= statsData[soloIndex].leaguePoints %> LP</li>
-            <li><%= statsData[soloIndex].wins + "wins" + statsData[soloIndex].wins+statsData[soloIndex].losses %></li>
+            <li><%= statsData[soloIndex].wins + " wins (" + soloGames %> games)</li>
         </ul>
     </div>
     <div class="flex-stats">
@@ -33,7 +33,7 @@
         <ul class="stats-list">
             <li><%= statsData[flexIndex].tier + " " + statsData[flexIndex].rank %></li>
             <li><%= statsData[flexIndex].leaguePoints %> LP</li>
-            <li><%= statsData[flexIndex].wins + "wins" +  %></li>
+            <li><%= statsData[flexIndex].wins + " wins (" + flexGames %> games)</li>
         </ul>
     </div>
 </div>
