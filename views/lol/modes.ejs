@@ -7,7 +7,14 @@
 "Nemesis Draft", "Nexus Blitz", "Nexus Siege", "Odyssey: Extraction", "One for All", "OVERCHARGE", 
 "Snowdown Showdown", "Ultra Rapid Fire"] %>
 
-<h5 class="mode-instruct">[Click on the mode to add to favorite modes]</h5>
+<% if (!currentUser)
+{ %>
+    <h5 class="mode-instruct">[Login to add modes to faves]</h5>
+<% }
+else
+{ %>
+    <h5 class="mode-instruct">[Click on the mode to add to favorite modes]</h5>
+<% } %>
 
 <div class="all-modes row row-cols-1 row-cols-md-3">
     <% for (let i = 0; i < 17; i++)
@@ -25,11 +32,14 @@
     <% for (let i = 0; i < 17; i++)
     { %>
         <div class="card bg-dark text-white all-mode-cards">
-            <form method="POST" action="/modes">
-                <input type="hidden" name="name" value="<%= gameModes[i] %>">
-                <input type="hidden" name="index" value="<%= i %>">
-                <input class="mode-icon" type="submit">
-            </form>
+            <% if (currentUser)
+            { %>
+                <form method="POST" action="/modes">
+                    <input type="hidden" name="name" value="<%= gameModes[i] %>">
+                    <input type="hidden" name="index" value="<%= i %>">
+                    <input class="mode-icon" type="submit">
+                </form>
+            <% } %>
         </div> 
     <% } %>
 </div>
