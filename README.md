@@ -1,5 +1,19 @@
 # Project 2 - League of Legends (imjchiang-lolinfo)
 
+## Purpose
+To display data from league of legends on specific players and allow players to create accounts to add favorite teammates, champions, and game modes from league of legends.
+
+## Technologies Used
+- node.js, PostgreSQL, Sequelize, JS, EJS, CSS
+- passport, passport-local, flash: authentification and messages on authentification
+- dotenv: hold session secret and api keys
+- express, express-session, express-ejs-layouts: routing and layout for EJS
+- fetch: getting data from APIs
+- request, cheerio: web scraping
+- method-override: get and post route override (put and delete)
+- bootstrap: for more cool CSS options
+- heroku: deploy site
+
 ## Installation Instructions
 1. go to GIT REPOSITORY LINK HERE
 2. fork and clone the repository
@@ -21,8 +35,66 @@
     - nodemon
     - node server.js
 
-## Purpose
-To display data from league of legends on specific players and allow players to create accounts to add favorite teammates, champions, and game modes from league of legends.
+## Heroku Initialization
+1. Get heroku account
+2. If MAC: ```brew tap heroku/brew && brew install heroku```
+2. If WINDOWS or LINUX: install heroku graphically
+3. ```heroku login```
+4. Make sure you're using ```app.listen(process.env.PORT || 3000)``` 
+5. ```touch Procfile``` (make sure it's capitalized)
+6. In ```Procfile``` add ```web: node server.js``` and save the Procfile
+7. Provide access to the ```sequelize-cli```
+    - if it's not in package.json ```npm i sequelize-cli```
+    - heroku will create it's own node modules folder
+8. Host the app with ```heroku app:create imjchiang-lolinfo```
+9. Check for heroku with ```git remote - v``` and commit to github with add, commit, push
+10. ```git push heroku master```
+    - check for errors with ```heroku logs```
+11. Set up the database with heroku
+    - ```heroku config:set SECRET_SESSION="SECRET-SESSION-KEY-HERE"```
+    - Add everything in ```.env``` to heroku through this method
+12. Create your database
+    - install Postgres on heroku with ```heroku addons:create heroku-postgresql:hobby-dev```
+    - Check for db with ```heroku config```
+    - Set up production settings in ```config.json```
+    - add ```"use_env_variable": "DATABASE_URL"```
+    - git add, commit, push to github first, then ```git push heroku master```
+    - migrate the database with ```heroku run sequelize db:migrate```
+13. Test your website by creating a new user
+    - Open your app with ```heroku open```
+    - Alternatively, the url will be using the name you gave your app in the url like so: https://imjchiang-lolinfo.heroku.com
+
+## Models
+```sequelize model:create --name favechampion --attributes name:string,champKey:string,topFive:string,user:string```
+
+```sequelize model:create --name favematch --attributes gameId:integer,region:string,season:integer,championKey:integer```
+
+```sequelize model:create --name favemode --attributes name:string```
+
+```sequelize model:create --name faveplayer --attributes username:string,accountId:string,summonerId:string,region:string```
+
+```sequelize model:create --name users_favechampions --attributes userId:integer,favechampionId:integer```
+
+```sequelize model:create --name users_favematches --attributes userId:integer,favematchId:integer```
+
+```sequelize model:create --name users_favemodes --attributes userId:integer,favemodeId:integer```
+
+```sequelize model:create --name users_faveplayers --attributes userId:integer,faveplayerId:integer```
+
+```sequelize model:create --name player --attributes username:string,accountId:string,summonerId:string,region:string,rank:string,level:integer,games:integer,winRate:integer,kda:integer```
+
+## Planning
+
+### ERD
+Link: https://drive.google.com/file/d/11LEb-omNQcTzm9VshVkEJlodRLQwnbty/view?usp=sharing
+
+### Wireframes
+Some of the wireframes (took me way too long to make these):
+
+![home.ejs](/public/wireframes/home.ejs.png)
+![general/allChamps.ejs](/public/wireframes/general-allChamps.ejs.png)
+![general/specificChamps.ejs](/public/wireframes/general-specificChamps.ejs.png)
+![player-showStats.ejs](/public/wireframes/player-showStats.ejs.png)
 
 ## Rundown Progress
 -  08.13.2020 - complete main auth (led by @Romebell)
@@ -489,7 +561,7 @@ request(URL, (error, response, body) =>
 
 #### BOOTSTRAP
 
-```javascript
+```HTML
 <div class="faveChamp-cards row row-cols-1 row-cols-md-3">
     <% faveChamps.forEach(champ =>
     { %>
@@ -538,7 +610,7 @@ request(URL, (error, response, body) =>
             - see oneChamp page of champion
             - delete the champ from the faveChamp database
 
-```javascript
+```HTML
 <div id="carouselExampleInterval" class="carousel slide highlights" data-ride="carousel" data-pause="false">
     <div class="carousel-inner">
         <div class="carousel-item active" data-interval="3000">
@@ -709,5 +781,3 @@ module.exports = {
 /* STYLING FOR HOME SPLASH ART */
 ```
 - PURPOSE: some of the styling used for the splash art on the home page
-
-## 
