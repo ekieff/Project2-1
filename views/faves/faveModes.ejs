@@ -1,0 +1,29 @@
+<h1 class="faveModes-title"><%= user.name %>'s Fave Champions</h1>
+
+<hr class="in-title">
+
+
+<div class="faveMode-cards row row-cols-1 row-cols-md-3">
+    <% for (let i = 0; i < allFaves.length; i++)
+    { %>
+    <div class="col mb-4">
+        <div class="card each-faveMode-card">
+            <img class="card-img-top faveModes-splash" src="/game-modes/mode-<%= modeIndex[i] + 1 %>.png">
+            <div class="card-body">
+                <h3 class="card-title faveMode-name"><%= allFaves[i].name %></h3>
+            </div>
+            <% if (myId == siteId)
+            { %>
+                <div class="card-footer">
+                    <div class="faveModes-buttons">
+                        <form class="faveMode-form" method="POST" action="/faveModes/?_method=DELETE">
+                            <input type="hidden" name="deleteMode" value="<%= allFaves[i].name %>">
+                            <input type="submit" value="DELETE">
+                        </form>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+    <% } %>
+</div>

@@ -31,8 +31,9 @@ router.get("/:id", function(req, res)
 
         user.favemodes.forEach(faveMode =>
         {
-            modeIndex.push(gameModes.indexOf(faveMode));
-        })
+            modeIndex.push(gameModes.indexOf(faveMode.name));
+        });
+        
         res.render("faves/faveModes", { bodyClass, allFaves, user, myId, siteId, modeIndex });
     })
     .catch(err =>
@@ -41,6 +42,42 @@ router.get("/:id", function(req, res)
     });
 });
 
+router.delete("/", function(req, res)
+{   
+    console.log("ENTERING DELETE ROUTE");
 
+    db.favemode.findOne(
+    {
+        where:
+        {
+            name: req.body.deleteMode
+        }
+    })
+    .then(deletemode =>
+    {
+        let modeId = deletemode.id;
+        db.users_favemodes.destroy(
+        {
+            where: 
+            {
+                favemodeId: modeId,
+                userId: req.user.id
+            }
+        })
+        .then(destroyedFaveModeAssociation =>
+        {
+            res.redirect(`/faveModes/${req.user.id}`);
+        })
+        .catch(err =>
+        {
+            console.log("ERROR: DELETION PROCESS FOR ASSOCIATION FAILED", err);
+        });
+    })
+    .catch(err =>
+    {
+        console.log("ERROR: MODE TO DELETE NOT FOUND", err);
+    });
+
+});
 
 module.exports = router;
