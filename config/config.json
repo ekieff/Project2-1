@@ -1,21 +1,15 @@
 {
   "development": {
-    "username": "imjchiang",
-    "password": 5375,
     "database": "league_of_L",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "imjchiang",
-    "password": 5375,
     "database": "league_of_L",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "imjchiang",
-    "password": 5375,
     "database": "league_of_L",
     "host": "127.0.0.1",
     "dialect": "postgres",

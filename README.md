@@ -17,21 +17,18 @@ To display data from league of legends on specific players and allow players to 
 ## Installation Instructions
 1. go to GIT REPOSITORY LINK HERE
 2. fork and clone the repository
-    - image of fork
-    - img of link
-    - git clone REPOSITORY
 3. install all node packages
     - npm i
-4. create the database
-    - createdb -U <username> league_of_L
-5. confirm database name is the same in the config/config.json
-6. if on MAC, remove all <username> and <password> entities in the config.json
-6. if on WINDOWS or LINUX, change <username> and <password> entries to the username and password of your database
-7. migrate the models to the database
+4. if on MAC, remove all <username> and <password> entities in the config.json
+5. create the database
+    - sequelize db:create league_of_L
+6. confirm database name is the same in the config/config.json
+7. if on WINDOWS or LINUX, change <username> and <password> entries to the username and password of your database (I'm unsure on the order of this but I had to change it in MAC so maybe double check?)
+8. migrate the models to the database
     - sequelize db:migrate
-8. add a .env file with the following field: 
-    - SESSION_SECRET: Can be any random string; usually a hash in production
-9. run the server!
+9. add a .env file with the following field: 
+    - SECRET_SESSION: Can be any random string; usually a hash in production
+10. run the server!
     - nodemon
     - node server.js
 
